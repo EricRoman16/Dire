@@ -1,0 +1,17 @@
+﻿[Name of Player],[Time Created]
+
+[Player stats] strength and speed, stuff like that and any status effects 
+
+[Achievements] for completing story or other stuff like finding an item or easter egg
+
+[map so far] layout of the map (maybe only changes so the map class has to override it)
+
+[World stats] ie monsters slain, quests done
+
+
+
+
+
+
+
+

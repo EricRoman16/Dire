@@ -1,0 +1,70 @@
+﻿TODO:
+
+Version: 0.1.0 Alpha
+	finish look command [Done]
+	finish move command [Done]
+
+version: 0.3.0 Alpha
+	make primary game loop better [Done]
+
+Version: 0.5.0 Alpha
+	figure out how all the map stuff is going to work [Done]
+	finish all map locations [On hold - need items to work]
+
+version: 0.7.0 Alpha
+	finish inventory of just items [Done]
+	being able to see what can be picked up [Done]
+
+version: 1.0.0 Alpha
+	finish Player class [ Working on]
+	make item class [Partly done]
+	make individual items from item class (inheritance) [Working on]
+
+version 1.3.0 Alpha
+	weapons and armor give stat boosts
+	actions with items
+
+version 1.7.0 Alpha
+	make enemy class
+	incorperate fighting 
+	make individual enemy classes / types (undergrounds/arials/undead/grown)
+	other enemy's can join the fight?
+
+version: 1.8.0 Alpha 
+	incorperate color
+	have all actions done said after in gray color
+
+version: 0.5.0 Beta
+	maybe some character customization
+
+version 2.0.0 Beta
+	incorperate story
+
+
+	Remember:
+		ID's
+
+
+	Thoughts:
+
+		Quests
+		crafting
+		npc texting? think about this one later
+		time - influences dmg maybe or sneaks work better at night?
+		Golden words for quest items/objectives?
+		progressive learning? 25x kills makes enemies harder to kill and resets after death
+		Game Stats/Info displays the stats and achievements as well as time, moves, etc.
+		Game cheats -> must find skeleton key
+
+
+Program > Main Menu > Intro > (Game Loop | Fight Loop | Conversation Loop) > Saves?
+					> Options > + Music (Y/N)
+							    + Text Select (Y/N)
+							    + Progressive learning (Y/N)
+					> Load \
+
+					Ask:
+					Get; Set;
+					sender
+					File thingy
+

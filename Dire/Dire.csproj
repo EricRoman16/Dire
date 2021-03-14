@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FC1EF66D-5A67-4950-9919-B3E7779DCFA4}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Dire</RootNamespace>
+    <AssemblyName>Dire</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Settings\DireIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\FileReader.cs" />
+    <Compile Include="Quests\Objectives\Kill.cs" />
+    <Compile Include="Quests\Quest.cs" />
+    <Compile Include="Scenes\GameLoops.cs" />
+    <Compile Include="Items\Consumables\Apple.cs" />
+    <Compile Include="Items\Consumables\Consumable.cs" />
+    <Compile Include="Items\Consumables\Cookie.cs" />
+    <Compile Include="Items\Weapons\Stick.cs" />
+    <Compile Include="Items\Weapons\Weapon.cs" />
+    <Compile Include="Map\Locations\Creek.cs" />
+    <Compile Include="Map\Locations\Field.cs" />
+    <Compile Include="Map\Locations\Forest.cs" />
+    <Compile Include="Map\Locations\House.cs" />
+    <Compile Include="Map\Locations\Locations.cs" />
+    <Compile Include="Map\Locations\PileOfLeaves.cs" />
+    <Compile Include="Map\Locations\TreeHouse.cs" />
+    <Compile Include="Music\AudioPlayer.cs" />
+    <Compile Include="Commands\Commands.cs" />
+    <Compile Include="Commands\NavigationController.cs" />
+    <Compile Include="Entities\Player.cs" />
+    <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Items\Weapons\Sword.cs" />
+    <Compile Include="Map\MAP.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Commands\TypeDisplayer.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Commands\ReadInput.cs" />
+    <Compile Include="Settings\Testing.cs" />
+    <Compile Include="Commands\TextWriter.cs" />
+    <Compile Include="Scenes\Intro\Intro.cs" />
+    <Compile Include="Scenes\MainMenu.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Settings\App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Settings\ExampleSave.txt" />
+    <Content Include="Settings\DireIcon.ico" />
+    <Content Include="Settings\Notes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Effects\" />
+    <Folder Include="Entities\Enemies\" />
+    <Folder Include="Entities\NPCS\" />
+    <Folder Include="Items\Armor\" />
+    <Folder Include="Items\Other\" />
+    <Folder Include="Quests\Items\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
