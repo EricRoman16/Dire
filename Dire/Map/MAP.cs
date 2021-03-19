@@ -18,6 +18,7 @@ namespace Dire
             { 0, 1, 0, 2, 1}
         };
 
+        
         // Gets the brief descriptions of all directions
         public static string GetBriefs(int[] p)
         {

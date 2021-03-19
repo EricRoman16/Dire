@@ -5,30 +5,33 @@ namespace Dire
 {
     public class Player
     {
-        //--------------------------------------------------Position-----------------------------------------------
-        public int[] Pos = new int[2] { 2, 2 };
-
-        //---------------------------------------------------Stats-------------------------------------------------
-        public Dictionary<string, int> Stats = new Dictionary<string, int>();
         public enum PlayerStates { Hidden, Seen, Conversation, Exploring, Fighting, Dead};
 
-        public PlayerStates playerStatus = PlayerStates.Exploring;
-        public string name = "Test";
-        public int age = 0;
+        public PlayerStates PlayerStatus { get; set; }
+        public string Name { get; set; }
+        public int[] Pos { get; set; }
+        public int Age { get; set; }
 
-        public List<Item> Inventory = new List<Item>();
-        // weapon 1, helm, armor, arms, legs, boots,
-        public List<Item> Equiped = new List<Item>();
+        public Dictionary<string, int> Inventory { get; set; }
+        public Dictionary<string, int> Stats { get; set; }
 
-        public Player(string n, int a)
+        public Dictionary<string, Item> Equipment = new Dictionary<string, Item>()
         {
-            name = n;
-            age = a;
-            Setup();
-        }
-        public Player()
+            {"Weapon 1", null },
+            {"Weapon 2", null },
+            {"Helm"    , null },
+            {"Chest"   , null },
+            {"Arms"    , null },
+            {"Legs"    , null },
+            {"Boots"   , null }
+        };
+        
+        public Player(string name, int age, int[] pos, PlayerStates playerstatus)
         {
-            Setup();
+            Name = name;
+            Age = age;
+            Pos = pos;
+            PlayerStatus = playerstatus;
         }
 
         public bool TrySneak()
@@ -42,15 +45,12 @@ namespace Dire
             }
             return true;
         }
-
         public int Attack()
         {
             int dmg = Stats["Strength"];
             //dmg += (Equiped[0] != null) ? Equiped[0].Damage : 0; // might break
             return dmg;
         }
-
-
 
         private void UpdateStats()
         {
@@ -93,19 +93,6 @@ namespace Dire
                     break;
             }
             return false;
-        }
-        private void Setup()
-        {
-            Stats.Add("Level", 0);
-            Stats.Add("MaxHealth", 0);
-            Stats.Add("Health", 1);
-            Stats.Add("Strength", 0);
-            Stats.Add("Detection", 0);
-            Stats.Add("Sneak", 0);
-            Stats.Add("Armor", 0);
-
-            for (int i = 0; i < 6; i++)
-                Equiped.Add(new Item());
         }
     }
 }

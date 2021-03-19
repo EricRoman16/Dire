@@ -8,22 +8,12 @@ namespace Dire.Quests
 {
     public class Quest
     {
-        Dictionary<int, string> Objectives = new Dictionary<int, string>()
-        {
-            {0, "Kill 10 Trolls" },
-            {1, "Find 2 Sticks" },
-            {2, "Talk to Maria" }
-        };
-        public string Objective;
+        public string Description { get; set; }
         
-        public Quest()
+        
+        public Quest(string description)
         {
-            
-        }
-
-        public static Quest GenerateNewQuest()
-        {
-            return new Quest();
+            Description = description;
         }
     }
 }

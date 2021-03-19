@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 
 namespace Dire
 {
@@ -13,7 +13,7 @@ namespace Dire
             while (GameRunning)
             {
                 MakePlayer();
-                while (true)
+                while (player.playerStatus != Player.PlayerStates.Dead)
                 {
                     if (player.playerStatus == Player.PlayerStates.Exploring)
                         ExplorationLoop();
@@ -21,16 +21,17 @@ namespace Dire
                         FightLoop();
                     if (player.playerStatus == Player.PlayerStates.Conversation)
                         ConversationLoop();
+                    if (player.playerStatus == Player.PlayerStates.Dead) 
+                        TextWriter.WriteLine(player.name + " has *died*.");
 
-                    if (player.playerStatus == Player.PlayerStates.Dead) break;
+                    if (GameRunning == false) return;
                 }
-                TextWriter.WriteLine(player.name + " has *died*.");
                 Console.ReadLine();
                 Console.Clear();
             }
         }
-        //                                                 Basic Game Loops
-        #region Other
+        
+        #region Basic Game Loops
         public static void ExplorationLoop()
         {
             while(player.playerStatus == Player.PlayerStates.Exploring)
@@ -41,6 +42,7 @@ namespace Dire
                     //int writingOnLine = Console.CursorTop; Im going to want to replace the input with the actions [> walk forward -> You walked forward]
                     Console.Write("> ");
                     bool x = ReadInput.Decifer(Console.ReadLine().Trim().ToLower(), player);
+                    if (!GameRunning) return;
                     if (x) break;
                 }
                 MOVE++;
@@ -54,14 +56,9 @@ namespace Dire
         {
             
         }
+        #endregion
 
-
-
-
-
-
-        //                                                  Other funtions
-
+        #region Other
         // Draw function that draws all context on screen
         public static void Draw()
         {

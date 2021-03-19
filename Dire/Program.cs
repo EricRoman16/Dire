@@ -5,7 +5,7 @@ namespace Dire
 {
     public enum GameStates { Start, Setup, Running, Fight }
     public class Program
-    {
+    { 
         // Main Game variables
         public static string version = "0.8.0 Alpha";
         public static GameStates CURRENTGAMESTATE;
@@ -13,7 +13,7 @@ namespace Dire
         // Main method that the program runs first
         public static void Main(string[] args)
         {
-            //RunDire();
+            RunDire();
         }
 
         // Main function that sets up and runs the games threads
@@ -25,7 +25,7 @@ namespace Dire
         }
         
         // Game threads for doing things simultaniously 
-        static Thread GameLoop = new Thread(GameLoops.MainLoop) { Name = "GameLoop" };
+        static Thread GameLoop    = new Thread(GameLoops.MainLoop   ) { Name = "GameLoop"    };
         static Thread MusicPlayer = new Thread(AudioPlayer.PlayMusic) { Name = "MusicPlayer" };
     }
 }

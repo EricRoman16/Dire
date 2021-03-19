@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\FileReader.cs" />
-    <Compile Include="Quests\Objectives\Kill.cs" />
     <Compile Include="Quests\Quest.cs" />
     <Compile Include="Scenes\GameLoops.cs" />
     <Compile Include="Items\Consumables\Apple.cs" />
@@ -93,7 +92,6 @@
     <Folder Include="Entities\NPCS\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Other\" />
-    <Folder Include="Quests\Items\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
