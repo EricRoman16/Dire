@@ -9,13 +9,6 @@ namespace Dire
     class Testing
     {
         
-        public static void Print(Player p)
-        {
-            Player w = new Player(); 
-            if (p != new Player())
-                Console.WriteLine("y");
-            Console.ReadLine();
-        }
         public static void testingSuperKeyPresses()
         {
             while (true)

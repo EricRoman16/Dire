@@ -52,7 +52,7 @@ namespace Dire
                 try { a = Convert.ToInt16(Console.ReadLine()); }
                 catch { Console.Clear(); TextWriter.WriteLine("That's not a number, please try again."); }
             }
-            p = new Player(n.Trim(), a);
+            p = new Player(n.Trim(), a, new int[] { 2, 2 }, Player.PlayerStates.Exploring);
             Console.Clear();
             return p;
         }

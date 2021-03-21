@@ -95,18 +95,19 @@ namespace Dire
         public static void DisplayEquippedInventory(Player player)
         {
             Console.WriteLine();
-            TextWriter.WriteLine(player.name + "'s Equipment:");
-            TextWriter.WriteLine("Weapon:\t\t"   + player.Equiped[0].ToString());
-            TextWriter.WriteLine("Helm:\t\t"     + player.Equiped[1].ToString());
-            TextWriter.WriteLine("Chestplate:\t" + player.Equiped[2].ToString());
-            TextWriter.WriteLine("Bracer:\t\t"   + player.Equiped[3].ToString());
-            TextWriter.WriteLine("Leggings:\t"   + player.Equiped[4].ToString());
-            TextWriter.WriteLine("Boots:\t\t"    + player.Equiped[5].ToString());
+            TextWriter.WriteLine(player.Name + "'s Equipment:");
+            TextWriter.WriteLine("Weapon 1:\t\t"   + player.Equipment["Weapon 1"]);
+            TextWriter.WriteLine("Weapon 2:\t\t"   + player.Equipment["Weapon 2"]);
+            TextWriter.WriteLine("Helm:\t\t"     + player.Equipment["Helm"]);
+            TextWriter.WriteLine("Chestplate:\t" + player.Equipment["Chest"]);
+            TextWriter.WriteLine("Bracer:\t\t"   + player.Equipment["Arms"]);
+            TextWriter.WriteLine("Leggings:\t"   + player.Equipment["Legs"]);
+            TextWriter.WriteLine("Boots:\t\t"    + player.Equipment["Boots"]);
         }
         public static void DisplayItemInventory(Player player)
         {
             Console.WriteLine();
-            TextWriter.WriteLine(player.name + "'s Backpack:");
+            TextWriter.WriteLine(player.Name + "'s Backpack:");
             int i = 0;
             foreach (Item item in player.Inventory)
             {
@@ -116,7 +117,7 @@ namespace Dire
         }
         public static void DisplayStats(Player p)
         {
-            TextWriter.WriteLine(p.name + "'s Status");
+            TextWriter.WriteLine(p.Name + "'s Status");
             foreach(KeyValuePair<string, int> n in p.Stats)
             {
                 if(n.Key.Length > 5)

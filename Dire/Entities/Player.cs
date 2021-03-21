@@ -12,9 +12,8 @@ namespace Dire
         public int[] Pos { get; set; }
         public int Age { get; set; }
 
-        public Dictionary<string, int> Inventory { get; set; }
+        public List<Item> Inventory { get; set; }
         public Dictionary<string, int> Stats { get; set; }
-
         public Dictionary<string, Item> Equipment = new Dictionary<string, Item>()
         {
             {"Weapon 1", null },

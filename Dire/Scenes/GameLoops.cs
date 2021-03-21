@@ -13,16 +13,16 @@ namespace Dire
             while (GameRunning)
             {
                 MakePlayer();
-                while (player.playerStatus != Player.PlayerStates.Dead)
+                while (player.PlayerStatus != Player.PlayerStates.Dead)
                 {
-                    if (player.playerStatus == Player.PlayerStates.Exploring)
+                    if (player.PlayerStatus == Player.PlayerStates.Exploring)
                         ExplorationLoop();
-                    if (player.playerStatus == Player.PlayerStates.Fighting)
+                    if (player.PlayerStatus == Player.PlayerStates.Fighting)
                         FightLoop();
-                    if (player.playerStatus == Player.PlayerStates.Conversation)
+                    if (player.PlayerStatus == Player.PlayerStates.Conversation)
                         ConversationLoop();
-                    if (player.playerStatus == Player.PlayerStates.Dead) 
-                        TextWriter.WriteLine(player.name + " has *died*.");
+                    if (player.PlayerStatus == Player.PlayerStates.Dead) 
+                        TextWriter.WriteLine(player.Name + " has *died*.");
 
                     if (GameRunning == false) return;
                 }
@@ -34,7 +34,7 @@ namespace Dire
         #region Basic Game Loops
         public static void ExplorationLoop()
         {
-            while(player.playerStatus == Player.PlayerStates.Exploring)
+            while(player.PlayerStatus == Player.PlayerStates.Exploring)
             {
                 Draw();
                 while (true)
@@ -84,14 +84,14 @@ namespace Dire
         public static void ShowStatus()
         {
             Console.SetCursorPosition(20, 0);
-            Console.WriteLine(player.playerStatus);
+            Console.WriteLine(player.PlayerStatus);
         }
         // Makes a new object of type player
         public static void MakePlayer()
         {
             //player = Settings.NewCharacter(player); // this can be commented out to remove intro
-            if (player != new Player())
-                player = new Player();
+            if (player == null)
+                player = new Player("test", 1, new int[] { 2, 2 }, Player.PlayerStates.Exploring);
         }
         // breaks the entire loop and exits the game
         public static void Exit()

@@ -1,6 +1,6 @@
-﻿using Dire.Items.Consumables;
+﻿using System;
+using Dire.Items.Consumables;
 using Dire.Items.Weapons;
-using System;
 using System.Collections.Generic;
 
 namespace Dire.Map.Locations
