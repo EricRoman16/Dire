@@ -7,13 +7,12 @@ namespace Dire
     public static class Commands
     {
         #region Basic Commands
+        //Gets brief descriptions of places around the player
         public static void Look(int[] p)
         {
-            string w = MAP.GetBriefs(p);
-            TextWriter.WriteLine(w);
-            //eventually will say brief desc about what's around
+            TextWriter.WriteLine(MAP.GetBriefs(p));
         }
-
+        //Gets descriptions of places in a description specified by the player
         public static void Look(string direction, Player p)
         {
             switch (direction)
@@ -38,7 +37,7 @@ namespace Dire
                     break;
             }
         }
-
+        //Moves in the direction specified by the player
         public static void Move(String direction, Player p)
         {
             switch(direction)
@@ -67,6 +66,7 @@ namespace Dire
         #endregion
         
         #region Item Handling
+        //Picks up an item that is found by the player
         public static bool PickupItem(string s, Player p)
         {
             List<Item> items = MAP.GetItems(p.Pos);
@@ -79,6 +79,7 @@ namespace Dire
             }
             return true;
         }
+        //Shows items on the ground
         public static void DisplayItemsOnGround(Player p)
         {
             List<Item> items = MAP.GetItems(p.Pos);
@@ -92,6 +93,7 @@ namespace Dire
         #endregion
 
         #region Display_Player_Stuff
+        //I mean just read the method descriptions
         public static void DisplayEquippedInventory(Player player)
         {
             Console.WriteLine();

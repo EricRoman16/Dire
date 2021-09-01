@@ -23,7 +23,7 @@ namespace Dire.Map.Locations
         {
             foreach (Item i in potentialItems)
             {
-                int x = dice.Next(0, 2);
+                int x = dice.Next(0, 2); 
                 if (x == 1)
                     items.Add(i);
             }

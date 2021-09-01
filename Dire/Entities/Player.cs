@@ -13,7 +13,15 @@ namespace Dire
         public int Age { get; set; }
 
         public List<Item> Inventory { get; set; }
-        public Dictionary<string, int> Stats { get; set; }
+        public Dictionary<string, int> Stats = new Dictionary<string, int>()
+        {
+            {"MaxHealth", 0 },
+            {"Health"   , 0 },
+            {"Strength" , 0 },
+            {"Detection", 0 },
+            {"Stealth"  , 0 },
+            {"Armor"    , 0 }
+        };
         public Dictionary<string, Item> Equipment = new Dictionary<string, Item>()
         {
             {"Weapon 1", null },
@@ -95,3 +103,19 @@ namespace Dire
         }
     }
 }
+
+/*
+public class YourClass
+{
+    private readonly IDictionary<string, string> _yourDictionary = new Dictionary<string, string>();
+
+    public string this[string key]
+    {
+        // returns value if exists
+        get { return _yourDictionary[key]; }
+
+        // updates if exists, adds if doesn't exist
+        set { _yourDictionary[key] = value; }
+    }
+}
+*/

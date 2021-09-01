@@ -89,7 +89,7 @@ namespace Dire
         // Makes a new object of type player
         public static void MakePlayer()
         {
-            //player = Settings.NewCharacter(player); // this can be commented out to remove intro
+            player = Settings.NewCharacter(player); // this can be commented out to remove intro
             if (player == null)
                 player = new Player("test", 1, new int[] { 2, 2 }, Player.PlayerStates.Exploring);
         }

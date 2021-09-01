@@ -82,6 +82,7 @@
     <None Include="Settings\App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Settings\Bugs.txt" />
     <Content Include="Settings\ExampleSave.txt" />
     <Content Include="Settings\DireIcon.ico" />
     <Content Include="Settings\Notes.txt" />
