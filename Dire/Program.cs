@@ -20,7 +20,7 @@ namespace Dire
         public static void RunDire()
         {
             Settings.Setup();
-            //MusicPlayer.Start(); //[Add the right sounds and music]
+            //MusicPlayer.Start(); //[Add the right sounds and music] ;)
             GameLoop.Start();
         }
         
