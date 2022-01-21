@@ -7,13 +7,14 @@ namespace Dire
     public class Program
     { 
         // Main Game variables
-        public static string version = "0.8.0 Alpha";
+        public static string version = "0.0.0 Pre-Alpha";
         public static GameStates CURRENTGAMESTATE;
 
         // Main method that the program runs first
         public static void Main(string[] args)
         {
-            RunDire();
+            //RunDire();
+            Testing.LinkedListTest();
         }
 
         // Main function that sets up and runs the games threads
@@ -26,7 +27,7 @@ namespace Dire
         
         // Game threads for doing things simultaniously 
         static Thread GameLoop    = new Thread(GameLoops.MainLoop   ) { Name = "GameLoop"    };
-        static Thread MusicPlayer = new Thread(AudioPlayer.PlayMusic) { Name = "MusicPlayer" };
+        //static Thread MusicPlayer = new Thread(AudioPlayer.PlayMusic) { Name = "MusicPlayer" };
     }
 }
 
