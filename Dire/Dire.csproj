@@ -54,13 +54,8 @@
     <Compile Include="Items\Consumables\Cookie.cs" />
     <Compile Include="Items\Weapons\Stick.cs" />
     <Compile Include="Items\Weapons\Weapon.cs" />
-    <Compile Include="Map\Locations\Creek.cs" />
-    <Compile Include="Map\Locations\Field.cs" />
-    <Compile Include="Map\Locations\Forest.cs" />
     <Compile Include="Map\Locations\House.cs" />
-    <Compile Include="Map\Locations\Locations.cs" />
-    <Compile Include="Map\Locations\PileOfLeaves.cs" />
-    <Compile Include="Map\Locations\TreeHouse.cs" />
+    <Compile Include="Map\Locations\Location.cs" />
     <Compile Include="Music\AudioPlayer.cs" />
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\NavigationController.cs" />

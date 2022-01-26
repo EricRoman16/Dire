@@ -21,10 +21,10 @@ namespace Dire
                     Console.WriteLine(k + Console.ReadLine());
             }
         }
-        public static void testingMap()
+        /*public static void testingMap()
         {
             Settings.Setup();
-            Locations w;
+            Location w;
             for(int x = 0; x < 5; x++)
             {
                 for(int y = 0; y < 5; y++)
@@ -38,7 +38,7 @@ namespace Dire
                 }
             }
             Console.ReadLine();
-        }
+        }*/
         public static void testRandom()
         {
             Random dice = new Random();

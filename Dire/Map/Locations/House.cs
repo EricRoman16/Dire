@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Dire.Map.Locations
 {
-    public class House : Locations
+    public class House : Location
     {
         private static new string lookedDirectAt = "A house stands tall and surprisingly pristine. You wonder what it's doing here. "; // add color as i think imma randomize stuff
         private static new string lookedBrieflyAt = "A house ";

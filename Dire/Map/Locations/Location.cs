@@ -2,7 +2,7 @@
 
 namespace Dire.Map.Locations
 {
-    public class Locations
+    public class Location
     {
         public string lookedDirectAt = "Locations class - lookedDirectAt";
         public string lookedBrieflyAt = "Locations class - lookedBrieflyAt";

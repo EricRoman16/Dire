@@ -7,7 +7,9 @@ namespace Dire
     {
         public static void MainLoop()
         {
-            
+            // need to make player
+            //need to generate map as it will be randomly generator
+            //need to figure out if
         }
     }
 }

@@ -42,9 +42,9 @@ namespace Dire
  * his back turned towards you and is munching
  * on a cows leg
  * 
- *  
- * > sneak behind troll
- * 
+ *   actions
+ * > Inventory >
+ *   Options
  */
 
 /*
