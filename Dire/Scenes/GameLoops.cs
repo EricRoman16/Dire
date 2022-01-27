@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dire.Scenes.Intro;
+using System;
 
 namespace Dire
 {
@@ -6,10 +7,13 @@ namespace Dire
     class GameLoops
     {
         public static void MainLoop()
-        {
+        { 
             // need to make player
+            Player PLAYER = Intro.IntroSequence();
             //need to generate map as it will be randomly generator
+
             //need to figure out if
         }
     }
+
 }

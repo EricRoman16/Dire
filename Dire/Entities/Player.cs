@@ -8,7 +8,17 @@ namespace Dire
         public enum PlayerStates { Hidden, Seen, Conversation, Exploring, Fighting, Dead};
 
         public PlayerStates PlayerStatus { get; set; }
-        public string Name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return Name;
+            }
+            set
+            {
+                Name = value + " :)";
+            }
+        }
         public int[] Pos { get; set; }
         public int Age { get; set; }
 
@@ -32,13 +42,16 @@ namespace Dire
             {"Legs"    , null },
             {"Boots"   , null }
         };
-        
+
+        public Player() { }
         public Player(string name, int age, int[] pos, PlayerStates playerstatus)
         {
             Name = name;
             Age = age;
             Pos = pos;
             PlayerStatus = playerstatus;
+
+            Name = "Name";
         }
 
         public bool TrySneak()
@@ -74,6 +87,19 @@ public class YourClass
 
         // updates if exists, adds if doesn't exist
         set { _yourDictionary[key] = value; }
+    }
+}
+*/
+/*
+public string Name
+{
+    get
+    {
+        return Name;
+    }
+    set
+    {
+        Name = value + " :)";
     }
 }
 */

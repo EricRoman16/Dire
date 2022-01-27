@@ -13,8 +13,8 @@ namespace Dire
         // Main method that the program runs first
         public static void Main(string[] args)
         {
-            //RunDire();
-            Testing.LinkedListTest();
+            RunDire();
+            
         }
 
         // Main function that sets up and runs the games threads
