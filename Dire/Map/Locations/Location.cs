@@ -4,9 +4,9 @@ namespace Dire.Map.Locations
 {
     public class Location
     {
-        public string lookedDirectAt = "Locations class - lookedDirectAt";
-        public string lookedBrieflyAt = "Locations class - lookedBrieflyAt";
-        public string at = "locations thing";
+        public string lookedDirectAt = "Location class - lookedDirectAt";
+        public string lookedBrieflyAt = "Location class - lookedBrieflyAt";
+        public string at = "location thing";
         public List<Item> items;
         public virtual string LookedDirectAt() { return lookedDirectAt; }
         public virtual string LookedBreiflyAt() { return lookedBrieflyAt; }
