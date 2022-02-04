@@ -1,11 +1,23 @@
 ﻿using System;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace Dire
 {
     public enum GameStates { Start, Setup, Running, Fight }
     public class Program
-    { 
+    {
+        #region Dll Color stuff
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool SetConsoleMode(IntPtr hConsoleHandle, int mode);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool GetConsoleMode(IntPtr handle, out int mode);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern IntPtr GetStdHandle(int handle);
+        #endregion
+
+
         // Main Game variables
         public static string version = "0.0.0 Pre-Alpha";
         public static GameStates CURRENTGAMESTATE;
@@ -13,7 +25,37 @@ namespace Dire
         // Main method that the program runs first
         public static void Main(string[] args)
         {
-            RunDire();
+            var handle = GetStdHandle(-11);
+            int mode;
+            GetConsoleMode(handle, out mode);
+            SetConsoleMode(handle, mode | 0x4);
+
+            for (int i = 0; i < 255; i++)
+            {
+                //Console.Write("\x1b[48;5;" + i + "m*");
+                Console.Write("\x1b[38;2;" + i + ";" + i + ";" + i + "m h");
+
+            }
+
+            Console.ReadLine();
+
+
+            TextWriter.WriteLine("^Hello^, this is a test for... the cool colors! Hope this works or I might be *sad*. |JK.|");
+
+
+
+            Console.ReadLine();
+
+
+
+
+
+
+
+
+
+
+            //RunDire();
             
         }
 

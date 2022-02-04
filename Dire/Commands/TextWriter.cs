@@ -15,18 +15,18 @@ namespace Dire
                 //Pauses after sentences
                 if (input[i].ToString().Equals(".") || input[i].ToString().Equals("!") || input[i].ToString().Equals("?"))
                 {
-                    Console.Write(input[i]);
+                    Console.Write("\x1b[38;2;" + 127 + ";" + 127 + ";" + 127 + "m" + $"{input[i]}");
                     Thread.Sleep(400);
                 }
                 else if (input[i].ToString().Equals(",")) // smaller pause after commas
                 {
-                    Console.Write(input[i]);
+                    Console.Write("\x1b[38;2;" + 127 + ";" + 127 + ";" + 127 + "m" + $"{input[i]}");
                     Thread.Sleep(200);
                 }
                 else if (input[i].ToString().Equals("*")) // Red color uses "*"
                 {
                     if (!Special)
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("\x1b[38;2;" + 255 + ";" + 0 + ";" + 0 + "m" + $"{input[i]}");
                     if (Special)
                         Console.ResetColor();
                     Special = !Special;
@@ -34,7 +34,7 @@ namespace Dire
                 else if (input[i].ToString().Equals("^")) // Green color uses "^"
                 {
                     if (!Special)
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("\x1b[38;2;" + 0 + ";" + 255 + ";" + 0 + "m" + $"{input[i]}");
                     if (Special)
                         Console.ResetColor();
                     Special = !Special;
@@ -42,14 +42,15 @@ namespace Dire
                 else if (input[i].ToString().Equals("|")) // Dark Gray color uses "|"
                 {
                     if (!Special)
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.Write("\x1b[38;2;" + 127 + ";" + 127 + ";" + 127 + "m" + $"{input[i]}");
                     if (Special)
                         Console.ResetColor();
                     Special = !Special;
                 }
                 else // Very small delay to make it look typed
                 {
-                    Console.Write(input[i]);
+                    //Console.Write(input[i]);
+                    Console.Write("\x1b[38;2;" + 127 + ";" + 127 + ";" + 127 + "m" + $"{input[i]}");
                     Thread.Sleep(20);
                 }
             }

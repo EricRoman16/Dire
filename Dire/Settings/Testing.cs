@@ -8,7 +8,7 @@ namespace Dire
 {
     class Testing
     {
-        
+
         public static void testingSuperKeyPresses()
         {
             while (true)
