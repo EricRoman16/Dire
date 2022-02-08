@@ -21,6 +21,7 @@ namespace Dire
                         CurrentTextMode = TextMode.Normal;
                     else
                         CurrentTextMode = TextMode.Bad;
+                    goto End;
                 }
                 if (input[i].ToString().Equals("^")) // Green color uses "^"
                 {
@@ -28,6 +29,7 @@ namespace Dire
                         CurrentTextMode = TextMode.Normal;
                     else
                         CurrentTextMode = TextMode.Good;
+                    goto End;
                 }
                 if (input[i].ToString().Equals("|")) // Dark Gray color uses "|"
                 {
@@ -35,6 +37,7 @@ namespace Dire
                         CurrentTextMode = TextMode.Normal;
                     else
                         CurrentTextMode = TextMode.Selected;
+                    goto End;
                 }
 
                 switch (CurrentTextMode)
@@ -64,8 +67,7 @@ namespace Dire
                 {
                     Thread.Sleep(200);
                 }
-
-                
+            End:;
             }
         }
         public static void WriteLines(string input)
