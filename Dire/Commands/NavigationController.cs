@@ -17,8 +17,9 @@ namespace Dire
             string write = "";
             for(int i = 0; i < options.Length; i++)
             {
-                if (selected == i) write += ">";
-                write += "\t" + options[i] + "\n";
+                write += options[i];
+                if (selected == i) write += " <";
+                write += "\n";
             }
             TextWriter.WriteLine(write);
         }
@@ -27,7 +28,7 @@ namespace Dire
             while (true)
             {
                 Console.WriteLine("press down arrow keys!");
-                ConsoleKey key = Console.ReadKey().Key;
+                ConsoleKey key = Console.ReadKey(true).Key;
                 if (key == ConsoleKey.H)
                     return;//watch
                 else

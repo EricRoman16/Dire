@@ -36,18 +36,13 @@ namespace Dire
                 Console.Write("\x1b[38;2;" + i + ";" + i + ";" + i + "m h");
 
             }
-
             Console.ReadLine();
-
-
             TextWriter.WriteLine("^Hello^, this is a test for... the cool colors! Hope this works or I might be *sad*. |JK.|");
-
-
-
             Console.ReadLine();
 
 
-
+            NavigationController.draw();
+            NavigationController.ReadKeyPresses();
 
 
 
