@@ -31,6 +31,7 @@ namespace Dire
             SetConsoleMode(handle, mode | 0x4);
 
             Console.WriteLine("normal");
+            /*Console.Write("\x1b[38;2;" + 192 + ";" + 192 + ";" + 192 + "m Is this normal too?");
             for (int i = 0; i < 255; i++)
             {
                 //Console.Write("\x1b[48;5;" + i + "m*");
@@ -39,7 +40,7 @@ namespace Dire
             }
             Console.ReadLine();
             TextWriter.WriteLine("^Hello^, this is a test for... the cool colors! Hope this works or I might be *sad*. |JK.|");
-            Console.ReadLine();
+            Console.ReadLine();*/
 
 
             NavigationController.draw();
