@@ -37,14 +37,14 @@ namespace Dire
                     Write[i, j] = tmp;
                 }
             }
-
+            
 
             // I DONT KNOW WHAT IM DOING!!!!
 
             Console.SetCursorPosition(startLeft, startTop);
-            for(int i = 0; i < Write.Length; i++)
+            for(int i = 0; i < options.Length; i++)
             {
-                for (int j = 0; j < Write.Length; j++)
+                for (int j = 0; j < longest; j++)
                 {
                     if (Write[i, j] != PastWrite[i, j])
                         Console.Write(Write[i, j]);
