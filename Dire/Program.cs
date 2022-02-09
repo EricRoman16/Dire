@@ -30,6 +30,7 @@ namespace Dire
             GetConsoleMode(handle, out mode);
             SetConsoleMode(handle, mode | 0x4);
 
+            Console.WriteLine("normal");
             for (int i = 0; i < 255; i++)
             {
                 //Console.Write("\x1b[48;5;" + i + "m*");
@@ -44,6 +45,12 @@ namespace Dire
             NavigationController.draw();
             NavigationController.ReadKeyPresses();
 
+            Console.ReadLine();
+            TextWriter.WriteLine("^OK!^ So this will be a *Test* for how this looks. |Type below to have it writen back|");
+            string input = Console.ReadLine();
+            TextWriter.WriteLine(input);
+            Console.ReadLine();
+
 
 
 
@@ -51,7 +58,7 @@ namespace Dire
 
 
             //RunDire();
-            
+
         }
 
         // Main function that sets up and runs the games threads

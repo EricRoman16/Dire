@@ -57,7 +57,7 @@ namespace Dire
                     default:
                         break;
                 }
-                Thread.Sleep(20);
+                Thread.Sleep(5);
 
                 if (input[i].ToString().Equals(".") || input[i].ToString().Equals("!") || input[i].ToString().Equals("?"))
                 {
@@ -69,7 +69,12 @@ namespace Dire
                 }
             End:;
             }
+            CurrentTextMode = TextMode.Normal;
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine();
         }
+
+
         public static void WriteLines(string input)
         {
             for (int i = 0; i < input.Length; ++i)
