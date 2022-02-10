@@ -24,7 +24,13 @@ namespace Dire
         // What has been writen to the screen - Here it should be empty
         static string[,] PastWrite = new string[Selections.Length, longest];
         //These will be the individual Arrays/Options for each selection
-        
+        static string[] LookSelections = new string[6] { "At", "Around", "North", "East", "South", "West"};
+        static string[] MoveSelections = new string[5] { "Towards", "North", "East", "South", "West"};
+        static string[] InventorySelections = new string[4] { "Use", "Equip", "Craft", "Drop" };
+        static string[] EquippedSelections = new string[2] { "Remove", "Stats"};
+        static string[] OptionsSelections = new string[6] { "Difficulty", "Save", "Load", "Music", "Documentation", "Exit" };
+        //static string[] ExitSelections = new string[2] { "Yes", "No"};
+
         public static void draw()
         {
             // Used for filling Write

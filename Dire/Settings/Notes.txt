@@ -74,3 +74,11 @@ Program > Main Menu > Intro > (Game Loop | Fight Loop | Conversation Loop) > Sav
 					Equipped    Equip
 					Exit		Use
 
+					Make a parser?
+
+	Look > {At, Around, North, East, South, West},
+	Move > {Towards, North, East, South, West}, 
+	Inventory > {Use, Equip, Craft, Drop}, 
+	Equipped > {Remove, Stats}, 
+	Options > {Difficulty > {Nightmare, Hard, Normal, Easy}, Save, Load, Music > {Yes, No}, Documentation, Exit > {Yes, No}}
+
