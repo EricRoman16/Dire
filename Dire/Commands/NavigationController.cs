@@ -8,80 +8,103 @@ namespace Dire
 {
     class NavigationController
     {
-        static string[] options = new string[5] { "Look", "Move", "Inventory", "Equiped", "Exit"};
+        enum Arrays { Selections, Look, Move, Inventory, Equipped, Options, Exit};
+
+        static Arrays CurrentUsedArray = Arrays.Selections;
+        // Variables
+        static int startLeft = 20;
+        static int startTop = 10;
+        static int longest = 11; //Must always be 2 more than the largest string
         static int selected = 0;
+        // Arrays ----------------------------------------------------------
+        // The Total option choices
+        static string[] Selections = new string[6] { "Look", "Move", "Inventory", "Equipped", "Options", "Exit"};
+        // What is needed to write to the screen
+        static string[,] Write = new string[Selections.Length, longest];
+        // What has been writen to the screen - Here it should be empty
+        static string[,] PastWrite = new string[Selections.Length, longest];
+        //These will be the individual Arrays/Options for each selection
         
         public static void draw()
         {
-            // this will have a previous write and a normal write
-            // it will create an array and look at the previous write 
-            // and only change based on the differences
-            Console.Clear(); // take this off later --------------- [Look]
-            Console.WriteLine();
-            int startLeft = 0;
-            int startTop = 0;
+            // Used for filling Write
             string tmp;
-            int longest = 0;
-            foreach (string s in options)
-                longest = (s.Length >= longest) ? s.Length : longest;
 
-            // Arrays
-            string[,] Write = new string[options.Length, longest];
-            string[,] PastWrite = Write;
-            for(int i = 0; i < options.Length; i++)
+            // Adds each idividual character into the Write array
+            for(int i = 0; i < Selections.Length; i++)
             {
-                for(int j = 0; j < options[i].Length; j++)
+                for(int j = 0; j < longest; j++)
                 {
-                    tmp = options[i];
-                    tmp[j].ToString();
+                    try
+                    {
+                        tmp = Selections[i].Substring(j, 1);
+                    }
+                    catch (Exception)
+                    {
+                        if (i == selected && j == Selections[i].Length + 1)
+                            tmp = "<";
+                        else
+                            tmp = " ";
+                    }
                     Write[i, j] = tmp;
                 }
             }
-            
 
-            // I DONT KNOW WHAT IM DOING!!!!
-
+            //Sets cursor invisable and to the start where it will start typing
+            Console.CursorVisible = false;
             Console.SetCursorPosition(startLeft, startTop);
-            for(int i = 0; i < options.Length; i++)
+            // Goes through write and writes each character to the screen
+            for(int i = 0; i < Selections.Length; i++)
+            {
+                Console.SetCursorPosition(startLeft, startTop+i);
+                for (int j = 0; j < longest; j++)
+                {
+                    Console.SetCursorPosition(startLeft+j, startTop+i);
+                    if (Write[i, j] != PastWrite[i, j])
+                        Console.Write(Write[i, j]);
+
+                }
+            }
+            //Console.CursorVisible = true;
+            // Sets PastWrite to Write so you dont redraw what's already there
+            for (int i = 0; i < Selections.Length; i++)
             {
                 for (int j = 0; j < longest; j++)
                 {
-                    if (Write[i, j] != PastWrite[i, j])
-                        Console.Write(Write[i, j]);
+                    PastWrite[i, j] = Write[i, j];
                 }
             }
-            Console.WriteLine(Write);
-            //TextWriter.WriteLine(write);
+            Console.SetCursorPosition(startLeft, startTop + Selections.Length);
         }
 
         public static void ReadKeyPresses()
         {
-            Console.WriteLine("press down arrow keys!");
+            Console.WriteLine();
+            //Console.WriteLine("press down arrow keys!");
             while (true)
             {
                 ConsoleKey key = Console.ReadKey(true).Key;
                 switch (key)
                 {
-                    case ConsoleKey.LeftArrow:
+                    case ConsoleKey.LeftArrow: // this will close secondary options 
                         break;
-                    case ConsoleKey.RightArrow:
+                    case ConsoleKey.RightArrow: // this will open up secondary options
                         break;
-                    case ConsoleKey.UpArrow:
-                        Console.Clear();
+                    case ConsoleKey.UpArrow: // this will go up in the list of options
                         selected--;
                         draw();
                         break;
-                    case ConsoleKey.DownArrow:
-                        Console.Clear();
+                    case ConsoleKey.DownArrow: // this will go down in the list of options [Need to make bounds for selected]
                         selected++;
                         draw();
                         break;
-                    case ConsoleKey.Enter:
+                    case ConsoleKey.Enter: // see right arrow
                         break;
-                    case ConsoleKey.Escape:
+                    case ConsoleKey.Escape: // see left arrow
                         return;
                     default:
-                        Console.Write("\x1b[38;2;" + 255 + ";" + 0 + ";" + 0 + "m" + $"{key} is not a valid command");
+                        //Console.Write("\x1b[38;2;" + 255 + ";" + 0 + ";" + 0 + "m" + $"{key} is not a valid command");
+                        //Console.ForegroundColor = ConsoleColor.Gray;
                         break;
                 }
             }

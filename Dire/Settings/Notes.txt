@@ -68,3 +68,9 @@ Program > Main Menu > Intro > (Game Loop | Fight Loop | Conversation Loop) > Sav
 					sender
 					File thingy
 
+					Look
+					Move
+					Inventory > Drop
+					Equipped    Equip
+					Exit		Use
+
