@@ -14,15 +14,15 @@ namespace Dire
         // Variables
         static int startLeft = 20;
         static int startTop = 10;
-        static int longest = 11; //Must always be 2 more than the largest string
+        static int Longest = 0; //Must always be 2 more than the largest string
         static int selected = 0;
         // Arrays ----------------------------------------------------------
         // The Total option choices
         static string[] Selections = new string[6] { "Look", "Move", "Inventory", "Equipped", "Options", "Exit"};
         // What is needed to write to the screen
-        static string[,] Write = new string[Selections.Length, longest];
+        static string[,] Write;
         // What has been writen to the screen - Here it should be empty
-        static string[,] PastWrite = new string[Selections.Length, longest];
+        static string[,] PastWrite;
         //These will be the individual Arrays/Options for each selection
         static string[] LookSelections = new string[6] { "At", "Around", "North", "East", "South", "West"};
         static string[] MoveSelections = new string[5] { "Towards", "North", "East", "South", "West"};
@@ -35,11 +35,16 @@ namespace Dire
         {
             // Used for filling Write
             string tmp;
+            foreach (string s in Selections)
+                Longest = (s.Length > Longest) ? s.Length : Longest;
+            Longest += 2;
+            Write = new string[Selections.Length, Longest];
+            PastWrite = new string[Selections.Length, Longest];
 
             // Adds each idividual character into the Write array
-            for(int i = 0; i < Selections.Length; i++)
+            for (int i = 0; i < Selections.Length; i++)
             {
-                for(int j = 0; j < longest; j++)
+                for(int j = 0; j < Longest; j++)
                 {
                     try
                     {
@@ -63,7 +68,7 @@ namespace Dire
             for(int i = 0; i < Selections.Length; i++)
             {
                 Console.SetCursorPosition(startLeft, startTop+i);
-                for (int j = 0; j < longest; j++)
+                for (int j = 0; j < Longest; j++)
                 {
                     Console.SetCursorPosition(startLeft+j, startTop+i);
                     if (Write[i, j] != PastWrite[i, j])
@@ -75,7 +80,7 @@ namespace Dire
             // Sets PastWrite to Write so you dont redraw what's already there
             for (int i = 0; i < Selections.Length; i++)
             {
-                for (int j = 0; j < longest; j++)
+                for (int j = 0; j < Longest; j++)
                 {
                     PastWrite[i, j] = Write[i, j];
                 }
