@@ -97,6 +97,9 @@ namespace Dire
                     Write[i, j] = tmp;
                 }
             }
+            //Here is where i'll add another for loop that will iterate between
+            //a array parameter (from the dictionary)and will add the extra options
+            //also using the STARTTOP + selected / STARTLEFT + Longest
         }
         /// <summary>
         /// Draws everything in the write array
