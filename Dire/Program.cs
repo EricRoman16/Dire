@@ -30,33 +30,11 @@ namespace Dire
             GetConsoleMode(handle, out mode);
             SetConsoleMode(handle, mode | 0x4);
 
-            //Console.WriteLine("normal");
-            /*Console.Write("\x1b[38;2;" + 192 + ";" + 192 + ";" + 192 + "m Is this normal too?");
-            for (int i = 0; i < 255; i++)
-            {
-                //Console.Write("\x1b[48;5;" + i + "m*");
-                Console.Write("\x1b[38;2;" + i + ";" + i + ";" + i + "m h");
+            //Console.Write("\x1b[48;5;" + i + "m*");
+            //Console.Write("\x1b[38;2;" + i + ";" + i + ";" + i + "m h");
 
-            }
-            Console.ReadLine();
-            TextWriter.WriteLine("^Hello^, this is a test for... the cool colors! Hope this works or I might be *sad*. |JK.|");
-            Console.ReadLine();*/
-
-            //Console.Write("\x1b[48;5;" + 238 + "m*");
-            NavigationController.draw();
+            NavigationController.Start();
             NavigationController.ReadKeyPresses();
-
-            Console.ReadLine();
-            TextWriter.WriteLine("^OK!^ \nSo this will be a *Test* for how this looks. |Type below to have it writen back|");
-            string input = Console.ReadLine();
-            TextWriter.WriteLine(input);
-            Console.ReadLine();
-
-
-
-
-
-
 
             //RunDire();
 
