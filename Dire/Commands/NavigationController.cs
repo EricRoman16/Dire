@@ -19,7 +19,7 @@ namespace Dire
         bool Entered = false;
 
         // The Total option choices
-        string[] Selections = new string[5] { "Look", "Move", "Inventory", "Equipped", "Options" };
+        string[] NormalSelections = new string[5] { "Look", "Move", "Inventory", "Equipped", "Options" };
         // What is needed to write to the screen
         string[,] Write;
         // What has been writen to the screen - Here it should be empty
@@ -36,7 +36,11 @@ namespace Dire
 
         #endregion
 
-
+        public NavigationController()
+        {
+            Begin();
+            
+        }
 
 
 
@@ -48,15 +52,15 @@ namespace Dire
             ReadKeyPresses();
 
             //Ends where the user would type
-            Console.SetCursorPosition(STARTLEFT, STARTTOP + Selections.Length);
+            Console.SetCursorPosition(STARTLEFT, STARTTOP + NormalSelections.Length);
         }
 
 
 
         void Setup()
         {
-            Write = new string[10, Longest * 2];
-            PastWrite = new string[10, Longest * 2];
+            Write = new string[10, Longest * 2 + 2];
+            PastWrite = new string[10, Longest * 2 + 2];
 
             for (int i = 0; i < Write.GetLength(0); i++)
             {
@@ -83,7 +87,7 @@ namespace Dire
             }
 
             int tmp = 0;
-            foreach(string s in Selections)
+            foreach(string s in NormalSelections)
             {
                 for(int i = 0; i < s.Length; i++)
                 {
@@ -106,11 +110,11 @@ namespace Dire
                     var w = SubSelections[MainSelected].GetValue(i).ToString();
                     for (int j = 0; j < w.Length; j++)
                     {
-                        Write[MainSelected + i, Longest + j] = w.ToString().Substring(j, 1);
+                        Write[MainSelected + i, Longest + j + 1] = w.ToString().Substring(j, 1);
                     }
                 }
                 for (float i = 2; i != 0; i--) {
-                    Write[MainSelected + SecondSelected, Longest * 2 - 1] = "<"; // Error here
+                    Write[MainSelected + SecondSelected, Longest * 2 + 1] = "<";
                 }
             }
         }
@@ -124,52 +128,32 @@ namespace Dire
             Console.SetCursorPosition(STARTLEFT, STARTTOP);
             int length0 = Write.GetLength(0);
             int length1 = Write.GetLength(1);
-            for (int i = 0; i < length0; i++)
+            lock (this)
             {
-                for (int j = 0; j < length1; j++)
+                for (int i = 0; i < length0; i++)
                 {
-                    Console.SetCursorPosition(STARTLEFT + j, STARTTOP + i);
-                    string x = " ";
-                    if (Write[i, j] != null && Write[i, j] != PastWrite[i, j])
+                    for (int j = 0; j < length1; j++)
                     {
-                        x = (Write[i, j]);
+                        Console.SetCursorPosition(STARTLEFT + j, STARTTOP + i);
+                        string x = " ";
+                        if (Write[i, j] != null && Write[i, j] != PastWrite[i, j])
+                        {
+                            x = (Write[i, j]);
+                        }
+                        Console.Write(x);
                     }
-                    Console.Write(x);
+                    Console.SetCursorPosition(STARTLEFT, STARTTOP + i + 1);
                 }
-                Console.SetCursorPosition(STARTLEFT, STARTTOP + i + 1);
             }
 
         }
-        
-        
+                
         void Enter()
         {
-            switch (MainSelected)
-            {
-                case 0:
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                default:
-                    break;
-            }
+            string x = SubSelections[MainSelected].GetValue(SecondSelected).ToString();
+            // Will send X to the commands class to get processed
         }
 
-        void Exit()
-        {
-
-        }
-        
-        
-        
-        
-        
         public void ReadKeyPresses()
         {
             Console.WriteLine();
@@ -180,23 +164,32 @@ namespace Dire
                 switch (key)
                 {
                     case ConsoleKey.LeftArrow: // this will close secondary options 
+                        Entered = false;
+                        SecondSelected = 0;
+                        Begin();
                         break;
                     case ConsoleKey.RightArrow: // this will open up secondary options
+                        if (Entered) Enter();
+                        Entered = true;
+                        Begin();
                         break;
                     case ConsoleKey.UpArrow: // this will go up in the list of options
-                        if (!Entered) MainSelected--; else SecondSelected--;
+                        if (!Entered && MainSelected > 0) MainSelected--; else if (Entered && SecondSelected > 0) SecondSelected--;
                         Begin();
                         break;
                     case ConsoleKey.DownArrow: // this will go down in the list of options [Need to make bounds for selected]
-                        if (!Entered) MainSelected++; else SecondSelected++;
+                        int tmp = SubSelections[MainSelected].Length;
+                        if (!Entered && MainSelected < 4) MainSelected++; else if (Entered && SecondSelected < tmp - 1) SecondSelected++;
                         Begin();
                         break;
                     case ConsoleKey.Enter: // see right arrow
+                        if (Entered) Enter();
                         Entered = true;
                         Begin();
                         break;
                     case ConsoleKey.Escape: // see left arrow
                         Entered = false;
+                        SecondSelected = 0;
                         Begin();
                         break;
                     default:
@@ -214,8 +207,8 @@ namespace Dire
             
          
          
-         MAYBE SOMETHING TO DO WITH FOR EACH LOOPS AND ALSO LOOKING IF THE WRITE[I,J] IS NULL BEFORE DOING
-         ANYTHING AND ONLY SETTING THE CURSOR POSITION THEN WRITING (THOUGHTS ON TRYING TO MAKE IT FASTER)
+         START THINKING ABOUT MORE OPTIONS ABOUT WHAT IT NEEDS TO TYPE 
+         I.E. PASSING IN STRINGS LIKE OPTIONS
          
          
          

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Runtime.InteropServices;
+using Dire.Scenes;
 
 namespace Dire
 {
@@ -33,11 +34,9 @@ namespace Dire
             //Console.Write("\x1b[48;5;" + i + "m*");
             //Console.Write("\x1b[38;2;" + i + ";" + i + ";" + i + "m h");
 
-
+            //MainMenu.DrawMainMenu();
 
             NavigationController NAVCTRL = new NavigationController();
-            NAVCTRL.Begin();
-            //NAVCTRL.ReadKeyPresses();
 
 
 
