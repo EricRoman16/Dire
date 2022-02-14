@@ -33,8 +33,14 @@ namespace Dire
             //Console.Write("\x1b[48;5;" + i + "m*");
             //Console.Write("\x1b[38;2;" + i + ";" + i + ";" + i + "m h");
 
-            NavigationController.Start();
-            NavigationController.ReadKeyPresses();
+
+
+            NavigationController NAVCTRL = new NavigationController();
+            NAVCTRL.Begin();
+            //NAVCTRL.ReadKeyPresses();
+
+
+
 
             //RunDire();
 

@@ -6,124 +6,133 @@ using System.Threading.Tasks;
 
 namespace Dire
 {
-    class NavigationController
+    public class NavigationController
     {
         enum Arrays { Selections, Look, Move, Inventory, Equipped, Options, Exit};
 
-        static Arrays CurrentUsedArray = Arrays.Selections;
-        // Variables
+        #region Variables
         const int STARTLEFT = 20;
         const int STARTTOP = 10;
-        static int Longest = 0; //Must always be 2 more than the largest string
-        static int MainSelected = 0;
-        static int SecondSelected = 0;
-        static bool Entered = false;
-        // Arrays ----------------------------------------------------------
+        int Longest = 11;
+        int MainSelected = 0;
+        int SecondSelected = 0;
+        bool Entered = false;
+        
         // The Total option choices
-        static string[] Selections = new string[5] { "Look", "Move", "Inventory", "Equipped", "Options"};
+        string[] Selections = new string[5] { "Look", "Move", "Inventory", "Equipped", "Options"};
         // What is needed to write to the screen
-        static string[,] Write;
+        string[,] Write;
         // What has been writen to the screen - Here it should be empty
-        static string[,] PastWrite;
+        string[,] PastWrite;
         //These will be the individual Arrays/Options for each selection
         Dictionary<int, string[]> SubSelections = new Dictionary<int, string[]>()
         {
             { 0 , new string[6] { "At", "Around", "North", "East", "South", "West"}                 },
             { 1 , new string[5] { "Towards", "North", "East", "South", "West"}                      },
             { 2 , new string[4] { "Use", "Equip", "Craft", "Drop" }                                 },
-            { 3 , new string[2] { "Remove", "Stats"}                                                },
+            { 3 , new string[2] { "Remove", "Stats" }                                               },
             { 4 , new string[6] { "Difficulty", "Save", "Load", "Music", "Documentation", "Exit" }  }
         };
-        
 
-        public static void Start()
+        #endregion
+
+
+
+
+
+        public void Begin()
         {
-            DoOnce();
             Setup();
-            Fill();
+            FillArray();
             Draw();
-            
+            ReadKeyPresses();
+
+            //Ends where the user would type
             Console.SetCursorPosition(STARTLEFT, STARTTOP + Selections.Length);
         }
 
-        static void DoOnce()
-        {
-            if(Longest == 0)
-            {
-                foreach (string s in Selections)
-                    Longest = (s.Length > Longest) ? s.Length : Longest;
-                Longest += 2;
-            }
-        }
+        
 
-        static void Setup()
+        void Setup()
         {
-            Write = new string[Selections.Length, Longest];
-            PastWrite = new string[Selections.Length, Longest];
+            Write = new string[12, Longest * 2];
+            PastWrite = new string[12, Longest * 2];
 
-            // Sets PastWrite to Write so you dont redraw what's already there
-            for (int i = 0; i < Selections.Length; i++)
+            for(int i = 0; i < Write.GetLength(0); i++)
             {
-                for (int j = 0; j < Longest; j++)
-                {
+                for (int j = 0; j < Write.GetLength(1); j++)
                     PastWrite[i, j] = Write[i, j];
-                }
             }
         }
 
         /// <summary>
         /// Fills the write array for what will be writen to the screen
         /// </summary>
-        static void Fill()
+        void FillArray()
         {
-            // Used for filling Write
-            string tmp;
-            // Adds each idividual character into the Write array
-            for (int i = 0; i < Write.GetLength(0); i++)
+            int x = (Entered) ? Write.GetLength(0) : Selections.GetLength(0);
+            int length1 = Write.GetLength(1);
+            for (int i = 0; i < x; i++)
             {
-                for (int j = 0; j < Write.GetLength(1); j++)
+                
+                for (int j = 0; j < length1; j++)
                 {
                     try
                     {
-                        tmp = Selections[i].Substring(j, 1);
+                        Write[i, j] = Selections[i].Substring(j, 1);
                     }
-                    catch (Exception)
+                    catch
                     {
-                        if (i == MainSelected && j == 10) //Selections[i].Length + 1
-                            tmp = (Entered) ? ">" : "<";
-                        else
-                            tmp = " ";
+                        Write[i, j] = " ";
+                        if (i == MainSelected && j == Longest - 1) Write[i, j] = (Entered) ? ">" : "<";
                     }
-                    Write[i, j] = tmp;
-                }
-            }
-            //Here is where i'll add another for loop that will iterate between
-            //a array parameter (from the dictionary)and will add the extra options
-            //also using the STARTTOP + selected / STARTLEFT + Longest
-        }
-        /// <summary>
-        /// Draws everything in the write array
-        /// </summary>
-        static void Draw()
-        {
-            //Sets cursor invisable and to the start where it will start typing
-            Console.CursorVisible = false;
-            Console.SetCursorPosition(STARTLEFT, STARTTOP);
-            // Goes through write and writes each character to the screen
-            for (int i = 0; i < Write.GetLength(0); i++)
-            {
-                Console.SetCursorPosition(STARTLEFT, STARTTOP + i);
-                for (int j = 0; j < Write.GetLength(1); j++)
-                {
-                    Console.SetCursorPosition(STARTLEFT + j, STARTTOP + i);
-                    if (Write[i, j] != PastWrite[i, j])
-                        Console.Write(Write[i, j]);
 
                 }
             }
+
+
+            //this is for when entered
+            if (Entered)
+            {
+                int length = SubSelections[MainSelected].GetLength(0);
+                for (int i = 0; i < length; i++)
+                {
+                    var w = SubSelections[MainSelected].GetValue(i);
+                    for (int j = 0; j < w.ToString().Length; j++)
+                    {
+                        Write[MainSelected + i, Longest + j] = w.ToString().Substring(j, 1);
+                    }
+                }
+                for (float i = 2; i != 0; i--){
+                    Write[MainSelected + SecondSelected, Longest * 2 - 1] = "<";
+                }
+            }
+        }
+
+        /// <summary>
+        /// Draws everything in the write array
+        /// </summary>
+        void Draw()
+        {
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(STARTLEFT, STARTTOP);
+            int length0 = Write.GetLength(0);
+            int length1 = Write.GetLength(1);
+            for (int i = 0; i < length0; i++)
+            {
+                for (int j = 0; j < length1; j++)
+                {
+                    if(Write[i,j] != PastWrite[i, j])
+                    {
+                        Console.Write(Write[i, j]);
+                    }
+                }
+                Console.SetCursorPosition(STARTLEFT, STARTTOP + i + 1);
+            }
+
         }
         
-        static void Enter()
+        void Enter()
         {
             switch (MainSelected)
             {
@@ -142,7 +151,7 @@ namespace Dire
             }
         }
 
-        static void Exit()
+        void Exit()
         {
 
         }
@@ -151,7 +160,7 @@ namespace Dire
         
         
         
-        public static void ReadKeyPresses()
+        public void ReadKeyPresses()
         {
             Console.WriteLine();
             //Console.WriteLine("press down arrow keys!");
@@ -165,26 +174,20 @@ namespace Dire
                     case ConsoleKey.RightArrow: // this will open up secondary options
                         break;
                     case ConsoleKey.UpArrow: // this will go up in the list of options
-                        if(MainSelected - 1 >= 0 && !Entered)
-                            MainSelected--;
-                        Start();
+                        if (!Entered) MainSelected--; else SecondSelected--;
+                        Begin();
                         break;
                     case ConsoleKey.DownArrow: // this will go down in the list of options [Need to make bounds for selected]
-                        if (MainSelected + 1 <= Selections.Length - 1 && !Entered) // this will probably need to change
-                            MainSelected++;
-                        Start();
+                        if (!Entered) MainSelected++; else SecondSelected++;
+                        Begin();
                         break;
                     case ConsoleKey.Enter: // see right arrow
-                        Entered = true;
-                        Start();
+                        Entered = !Entered;
+                        Begin();
                         break;
                     case ConsoleKey.Escape: // see left arrow
-                        Entered = false;
-                        Start();
                         break;
                     default:
-                        //Console.Write("\x1b[38;2;" + 255 + ";" + 0 + ";" + 0 + "m" + $"{key} is not a valid command");
-                        //Console.ForegroundColor = ConsoleColor.Gray;
                         break;
                 }
             }
@@ -199,7 +202,8 @@ namespace Dire
             
          
          
-         
+         MAYBE SOMETHING TO DO WITH FOR EACH LOOPS AND ALSO LOOKING IF THE WRITE[I,J] IS NULL BEFORE DOING
+         ANYTHING AND ONLY SETTING THE CURSOR POSITION THEN WRITING (THOUGHTS ON TRYING TO MAKE IT FASTER)
          
          
          
