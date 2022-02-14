@@ -11,8 +11,8 @@ namespace Dire
         enum Arrays { Selections, Look, Move, Inventory, Equipped, Options, Exit};
 
         #region Variables
-        const int STARTLEFT = 20;
-        const int STARTTOP = 10;
+        const int STARTLEFT = 0;
+        const int STARTTOP = 5;
         int Longest = 11;
         int MainSelected = 0;
         int SecondSelected = 0;
@@ -97,8 +97,8 @@ namespace Dire
                 int length = SubSelections[MainSelected].GetLength(0);
                 for (int i = 0; i < length; i++)
                 {
-                    var w = SubSelections[MainSelected].GetValue(i);
-                    for (int j = 0; j < w.ToString().Length; j++)
+                    var w = SubSelections[MainSelected].GetValue(i).ToString();
+                    for (int j = 0; j < w.Length; j++)
                     {
                         Write[MainSelected + i, Longest + j] = w.ToString().Substring(j, 1);
                     }
@@ -182,10 +182,12 @@ namespace Dire
                         Begin();
                         break;
                     case ConsoleKey.Enter: // see right arrow
-                        Entered = !Entered;
+                        Entered = true;
                         Begin();
                         break;
                     case ConsoleKey.Escape: // see left arrow
+                        Entered = false;
+                        Begin();
                         break;
                     default:
                         break;
