@@ -8,7 +8,7 @@ namespace Dire
 {
     public class NavigationController
     {
-        enum Arrays { Selections, Look, Move, Inventory, Equipped, Options, Exit};
+        enum Arrays { Selections, Look, Move, Inventory, Equipped, Options, Exit };
 
         #region Variables
         const int STARTLEFT = 0;
@@ -17,9 +17,9 @@ namespace Dire
         int MainSelected = 0;
         int SecondSelected = 0;
         bool Entered = false;
-        
+
         // The Total option choices
-        string[] Selections = new string[5] { "Look", "Move", "Inventory", "Equipped", "Options"};
+        string[] Selections = new string[5] { "Look", "Move", "Inventory", "Equipped", "Options" };
         // What is needed to write to the screen
         string[,] Write;
         // What has been writen to the screen - Here it should be empty
@@ -31,7 +31,7 @@ namespace Dire
             { 1 , new string[5] { "Towards", "North", "East", "South", "West"}                      },
             { 2 , new string[4] { "Use", "Equip", "Craft", "Drop" }                                 },
             { 3 , new string[2] { "Remove", "Stats" }                                               },
-            { 4 , new string[6] { "Difficulty", "Save", "Load", "Music", "Documentation", "Exit" }  }
+            { 4 , new string[6] { "Difficulty", "Save", "Load", "Music", "Docs", "Exit" }  }
         };
 
         #endregion
@@ -51,14 +51,14 @@ namespace Dire
             Console.SetCursorPosition(STARTLEFT, STARTTOP + Selections.Length);
         }
 
-        
+
 
         void Setup()
         {
-            Write = new string[12, Longest * 2];
-            PastWrite = new string[12, Longest * 2];
+            Write = new string[10, Longest * 2];
+            PastWrite = new string[10, Longest * 2];
 
-            for(int i = 0; i < Write.GetLength(0); i++)
+            for (int i = 0; i < Write.GetLength(0); i++)
             {
                 for (int j = 0; j < Write.GetLength(1); j++)
                     PastWrite[i, j] = Write[i, j];
@@ -70,26 +70,32 @@ namespace Dire
         /// </summary>
         void FillArray()
         {
-            int x = (Entered) ? Write.GetLength(0) : Selections.GetLength(0);
+            int length0 = Write.GetLength(0);
             int length1 = Write.GetLength(1);
-            for (int i = 0; i < x; i++)
+            for (int i = 0; i < length0; i++)
             {
-                
+
                 for (int j = 0; j < length1; j++)
                 {
-                    try
-                    {
-                        Write[i, j] = Selections[i].Substring(j, 1);
-                    }
-                    catch
-                    {
-                        Write[i, j] = " ";
-                        if (i == MainSelected && j == Longest - 1) Write[i, j] = (Entered) ? ">" : "<";
-                    }
+                    Write[i, j] = null;
 
                 }
             }
 
+            int tmp = 0;
+            foreach(string s in Selections)
+            {
+                for(int i = 0; i < s.Length; i++)
+                {
+                    Write[tmp, i] = s.Substring(i, 1);
+                }
+                tmp++;
+            }
+            for(int i = 0; i < length0; i++)
+            {
+                string x = (Entered) ? ">" : "<";
+                Write[i, Longest - 1] = (i == MainSelected) ? x : " ";
+            }
 
             //this is for when entered
             if (Entered)
@@ -103,8 +109,8 @@ namespace Dire
                         Write[MainSelected + i, Longest + j] = w.ToString().Substring(j, 1);
                     }
                 }
-                for (float i = 2; i != 0; i--){
-                    Write[MainSelected + SecondSelected, Longest * 2 - 1] = "<";
+                for (float i = 2; i != 0; i--) {
+                    Write[MainSelected + SecondSelected, Longest * 2 - 1] = "<"; // Error here
                 }
             }
         }
@@ -122,15 +128,19 @@ namespace Dire
             {
                 for (int j = 0; j < length1; j++)
                 {
-                    if(Write[i,j] != PastWrite[i, j])
+                    Console.SetCursorPosition(STARTLEFT + j, STARTTOP + i);
+                    string x = " ";
+                    if (Write[i, j] != null && Write[i, j] != PastWrite[i, j])
                     {
-                        Console.Write(Write[i, j]);
+                        x = (Write[i, j]);
                     }
+                    Console.Write(x);
                 }
                 Console.SetCursorPosition(STARTLEFT, STARTTOP + i + 1);
             }
 
         }
+        
         
         void Enter()
         {
