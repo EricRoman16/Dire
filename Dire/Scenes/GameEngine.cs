@@ -54,7 +54,7 @@ namespace Dire
 
 
 
-            Console.ReadKey(true);
+            //Console.ReadKey(true);
             NavController = new Thread(NC.NormalBegin) { Name = "NavController Thread" };
             NavController.Start();
             

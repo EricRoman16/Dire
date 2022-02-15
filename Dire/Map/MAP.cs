@@ -8,13 +8,13 @@ namespace Dire
     {
         public Location[,] RealMap = new Location[10, 10];
 
-        public void callingFunctions()
+        public void callingFunctions(string s)
         {
             foreach(Location loc in RealMap)
             {
                 //loc.createPositions();
             }
-                
+            
         }
 
 
