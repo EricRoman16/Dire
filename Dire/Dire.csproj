@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Commands\FileReader.cs" />
     <Compile Include="Quests\Quest.cs" />
-    <Compile Include="Scenes\GameLoops.cs" />
+    <Compile Include="Scenes\GameEngine.cs" />
     <Compile Include="Items\Consumables\Apple.cs" />
     <Compile Include="Items\Consumables\Consumable.cs" />
     <Compile Include="Items\Consumables\Cookie.cs" />

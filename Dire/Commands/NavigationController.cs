@@ -8,12 +8,12 @@ namespace Dire
 {
     public class NavigationController
     {
-        enum Arrays { Selections, Look, Move, Inventory, Equipped, Options, Exit };
+        //enum Arrays { Selections, Look, Move, Inventory, Equipped, Options, Exit }; // Not in use currently
 
         #region Variables
-        const int STARTLEFT = 0;
-        const int STARTTOP = 5;
-        int Longest = 11;
+        int StartLeft = 0;
+        int StartTop = 10;
+        int Longest;
         int MainSelected = 0;
         int SecondSelected = 0;
         bool Entered = false;
@@ -24,7 +24,7 @@ namespace Dire
         string[,] Write;
         // What has been writen to the screen - Here it should be empty
         string[,] PastWrite;
-        //These will be the individual Arrays/Options for each selection
+        // These will be the individual Arrays/Options for each selection
         Dictionary<int, string[]> SubSelections = new Dictionary<int, string[]>()
         {
             { 0 , new string[6] { "At", "Around", "North", "East", "South", "West"}                 },
@@ -38,27 +38,27 @@ namespace Dire
 
         public NavigationController()
         {
-            Begin();
             
         }
 
-
-
-        public void Begin()
+        public void NormalBegin()
         {
             Setup();
-            FillArray();
-            Draw();
+            FillArray(Write);
+            Draw(Write, PastWrite);
             ReadKeyPresses();
 
             //Ends where the user would type
-            Console.SetCursorPosition(STARTLEFT, STARTTOP + NormalSelections.Length);
+            Console.SetCursorPosition(StartLeft, StartTop + NormalSelections.Length);
         }
-
 
 
         void Setup()
         {
+            Longest = 0;
+            foreach (string s in NormalSelections)
+                Longest = (s.Length > Longest) ? s.Length : Longest;
+            Longest += 2;
             Write = new string[10, Longest * 2 + 2];
             PastWrite = new string[10, Longest * 2 + 2];
 
@@ -72,16 +72,16 @@ namespace Dire
         /// <summary>
         /// Fills the write array for what will be writen to the screen
         /// </summary>
-        void FillArray()
+        void FillArray(string[,] w)
         {
-            int length0 = Write.GetLength(0);
-            int length1 = Write.GetLength(1);
+            int length0 = w.GetLength(0);
+            int length1 = w.GetLength(1);
             for (int i = 0; i < length0; i++)
             {
 
                 for (int j = 0; j < length1; j++)
                 {
-                    Write[i, j] = null;
+                    w[i, j] = null;
 
                 }
             }
@@ -91,14 +91,14 @@ namespace Dire
             {
                 for(int i = 0; i < s.Length; i++)
                 {
-                    Write[tmp, i] = s.Substring(i, 1);
+                    w[tmp, i] = s.Substring(i, 1);
                 }
                 tmp++;
             }
             for(int i = 0; i < length0; i++)
             {
                 string x = (Entered) ? ">" : "<";
-                Write[i, Longest - 1] = (i == MainSelected) ? x : " ";
+                w[i, Longest - 1] = (i == MainSelected) ? x : " ";
             }
 
             //this is for when entered
@@ -107,14 +107,14 @@ namespace Dire
                 int length = SubSelections[MainSelected].GetLength(0);
                 for (int i = 0; i < length; i++)
                 {
-                    var w = SubSelections[MainSelected].GetValue(i).ToString();
-                    for (int j = 0; j < w.Length; j++)
+                    var l = SubSelections[MainSelected].GetValue(i).ToString();
+                    for (int j = 0; j < l.Length; j++)
                     {
-                        Write[MainSelected + i, Longest + j + 1] = w.ToString().Substring(j, 1);
+                        Write[MainSelected + i, Longest + j + 1] = l.ToString().Substring(j, 1);
                     }
                 }
                 for (float i = 2; i != 0; i--) {
-                    Write[MainSelected + SecondSelected, Longest * 2 + 1] = "<";
+                    w[MainSelected + SecondSelected, Longest * 2 + 1] = "<";
                 }
             }
         }
@@ -122,27 +122,27 @@ namespace Dire
         /// <summary>
         /// Draws everything in the write array
         /// </summary>
-        void Draw()
+        void Draw(string[,] w, string[,] pw)
         {
-            Console.CursorVisible = false;
-            Console.SetCursorPosition(STARTLEFT, STARTTOP);
-            int length0 = Write.GetLength(0);
-            int length1 = Write.GetLength(1);
+            int length0 = w.GetLength(0);
+            int length1 = w.GetLength(1);
             lock (this)
             {
+                Console.CursorVisible = false;
+                Console.SetCursorPosition(StartLeft, StartTop);
                 for (int i = 0; i < length0; i++)
                 {
                     for (int j = 0; j < length1; j++)
                     {
-                        Console.SetCursorPosition(STARTLEFT + j, STARTTOP + i);
+                        Console.SetCursorPosition(StartLeft + j, StartTop + i);
                         string x = " ";
-                        if (Write[i, j] != null && Write[i, j] != PastWrite[i, j])
+                        if (w[i, j] != null && w[i, j] != pw[i, j])
                         {
-                            x = (Write[i, j]);
+                            x = (w[i, j]);
                         }
                         Console.Write(x);
                     }
-                    Console.SetCursorPosition(STARTLEFT, STARTTOP + i + 1);
+                    Console.SetCursorPosition(StartLeft, StartTop + i + 1);
                 }
             }
 
@@ -154,7 +154,7 @@ namespace Dire
             // Will send X to the commands class to get processed
         }
 
-        public void ReadKeyPresses()
+        void ReadKeyPresses()
         {
             Console.WriteLine();
             //Console.WriteLine("press down arrow keys!");
@@ -166,31 +166,30 @@ namespace Dire
                     case ConsoleKey.LeftArrow: // this will close secondary options 
                         Entered = false;
                         SecondSelected = 0;
-                        Begin();
+                        NormalBegin();
                         break;
                     case ConsoleKey.RightArrow: // this will open up secondary options
-                        if (Entered) Enter();
                         Entered = true;
-                        Begin();
+                        NormalBegin();
                         break;
                     case ConsoleKey.UpArrow: // this will go up in the list of options
                         if (!Entered && MainSelected > 0) MainSelected--; else if (Entered && SecondSelected > 0) SecondSelected--;
-                        Begin();
+                        NormalBegin();
                         break;
                     case ConsoleKey.DownArrow: // this will go down in the list of options [Need to make bounds for selected]
                         int tmp = SubSelections[MainSelected].Length;
                         if (!Entered && MainSelected < 4) MainSelected++; else if (Entered && SecondSelected < tmp - 1) SecondSelected++;
-                        Begin();
+                        NormalBegin();
                         break;
                     case ConsoleKey.Enter: // see right arrow
                         if (Entered) Enter();
                         Entered = true;
-                        Begin();
+                        NormalBegin();
                         break;
                     case ConsoleKey.Escape: // see left arrow
                         Entered = false;
                         SecondSelected = 0;
-                        Begin();
+                        NormalBegin();
                         break;
                     default:
                         break;

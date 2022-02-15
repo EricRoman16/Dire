@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Threading;
 using System.Runtime.InteropServices;
-using Dire.Scenes;
 
 namespace Dire
 {
@@ -20,8 +18,9 @@ namespace Dire
 
 
         // Main Game variables
-        public static string version = "0.0.0 Pre-Alpha";
+        public static string version = "0.0.1 Pre-Alpha";
         public static GameStates CURRENTGAMESTATE;
+        public static GameEngine GE;
 
         // Main method that the program runs first
         public static void Main(string[] args)
@@ -34,28 +33,23 @@ namespace Dire
             //Console.Write("\x1b[48;5;" + i + "m*");
             //Console.Write("\x1b[38;2;" + i + ";" + i + ";" + i + "m h");
 
-            //MainMenu.DrawMainMenu();
 
-            NavigationController NAVCTRL = new NavigationController();
-
+            //NavigationController NAVCTRL = new NavigationController();
 
 
 
-            //RunDire();
+
+            RunDire();
 
         }
 
-        // Main function that sets up and runs the games threads
+        // Main function that sets up and runs the game
         public static void RunDire()
         {
             Settings.Setup();
-            //MusicPlayer.Start(); //[Add the right sounds and music] :)
-            GameLoop.Start();
+            GE = new GameEngine(false, true);
         }
         
-        // Game threads for doing things simultaniously 
-        static Thread GameLoop    = new Thread(GameLoops.MainLoop   ) { Name = "GameLoop"    };
-        //static Thread MusicPlayer = new Thread(AudioPlayer.PlayMusic) { Name = "MusicPlayer" };
     }
 }
 
