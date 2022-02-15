@@ -1,6 +1,8 @@
 ﻿using Dire.Scenes.Intro;
 using System.Threading;
 using System;
+using Dire.Map.Locations;
+using Dire.Items.Consumables;
 
 namespace Dire
 {
@@ -41,7 +43,7 @@ namespace Dire
         
         
         public void MainGameLoop()
-        { 
+        {
             // need to make player
             //Player PLAYER = Intro.IntroSequence();
             //need to generate map as it will be randomly generator
@@ -49,6 +51,10 @@ namespace Dire
             //need to figure out if
 
 
+
+
+
+            Console.ReadKey(true);
             NavController = new Thread(NC.NormalBegin) { Name = "NavController Thread" };
             NavController.Start();
             

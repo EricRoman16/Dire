@@ -11,9 +11,9 @@ namespace Dire.Map.Locations
         private static new string lookedBrieflyAt = "A house ";
         private new string at = "You are in a house";
 
-        private static Random dice = new Random();
+        private Random dice = new Random();
         private Item[] potentialItems = new Item[] { new Apple(), new Stick(), new Sword() };
-        private new List<Item> items = new List<Item>();
+        public new List<Item> items = new List<Item>();
 
         public House()
         {

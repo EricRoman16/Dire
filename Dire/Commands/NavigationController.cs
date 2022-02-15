@@ -8,7 +8,8 @@ namespace Dire
 {
     public class NavigationController
     {
-        //enum Arrays { Selections, Look, Move, Inventory, Equipped, Options, Exit }; // Not in use currently
+        enum Mode { Normal, MainMenu }; // Not in use currently
+        Mode CurrentMode = Mode.Normal;
 
         #region Variables
         int StartLeft = 0;
@@ -18,14 +19,11 @@ namespace Dire
         int SecondSelected = 0;
         bool Entered = false;
 
-        // The Total option choices
-        string[] NormalSelections = new string[5] { "Look", "Move", "Inventory", "Equipped", "Options" };
-        // What is needed to write to the screen
-        string[,] Write;
-        // What has been writen to the screen - Here it should be empty
-        string[,] PastWrite;
-        // These will be the individual Arrays/Options for each selection
-        Dictionary<int, string[]> SubSelections = new Dictionary<int, string[]>()
+
+        string[] NormalSelections = new string[5] { "Look", "Move", "Inventory", "Equipped", "Options" };// The Total option choices
+        string[,] Write; // What is needed to write to the screen
+        string[,] PastWrite;// What has been writen to the screen - Here it should be empty
+        Dictionary<int, string[]> NormalSubSelections = new Dictionary<int, string[]>()// These will be the individual Arrays/Options for each selection
         {
             { 0 , new string[6] { "At", "Around", "North", "East", "South", "West"}                 },
             { 1 , new string[5] { "Towards", "North", "East", "South", "West"}                      },
@@ -38,12 +36,13 @@ namespace Dire
 
         public NavigationController()
         {
-            
+            CurrentMode = Mode.Normal; // Might change this later
         }
 
         public void NormalBegin()
         {
             Setup();
+            
             FillArray(Write);
             Draw(Write, PastWrite);
             ReadKeyPresses();
@@ -76,9 +75,8 @@ namespace Dire
         {
             int length0 = w.GetLength(0);
             int length1 = w.GetLength(1);
-            for (int i = 0; i < length0; i++)
+            for (int i = 0; i < length0; i++) // clears w
             {
-
                 for (int j = 0; j < length1; j++)
                 {
                     w[i, j] = null;
@@ -87,7 +85,7 @@ namespace Dire
             }
 
             int tmp = 0;
-            foreach(string s in NormalSelections)
+            foreach(string s in NormalSelections) // fills w
             {
                 for(int i = 0; i < s.Length; i++)
                 {
@@ -95,25 +93,25 @@ namespace Dire
                 }
                 tmp++;
             }
-            for(int i = 0; i < length0; i++)
+            for(int i = 0; i < length0; i++) // adds pointer
             {
                 string x = (Entered) ? ">" : "<";
                 w[i, Longest - 1] = (i == MainSelected) ? x : " ";
             }
 
-            //this is for when entered
-            if (Entered)
+            if (Entered) // this is for when entered
             {
-                int length = SubSelections[MainSelected].GetLength(0);
-                for (int i = 0; i < length; i++)
+                int length = NormalSubSelections[MainSelected].GetLength(0);
+                for (int i = 0; i < length; i++) // fills subselections to w
                 {
-                    var l = SubSelections[MainSelected].GetValue(i).ToString();
+                    var l = NormalSubSelections[MainSelected].GetValue(i).ToString();
                     for (int j = 0; j < l.Length; j++)
                     {
                         Write[MainSelected + i, Longest + j + 1] = l.ToString().Substring(j, 1);
                     }
                 }
-                for (float i = 2; i != 0; i--) {
+                for (float i = 2; i != 0; i--) // adds second pointer
+                {
                     w[MainSelected + SecondSelected, Longest * 2 + 1] = "<";
                 }
             }
@@ -150,7 +148,7 @@ namespace Dire
                 
         void Enter()
         {
-            string x = SubSelections[MainSelected].GetValue(SecondSelected).ToString();
+            string x = NormalSubSelections[MainSelected].GetValue(SecondSelected).ToString();
             // Will send X to the commands class to get processed
         }
 
@@ -177,7 +175,7 @@ namespace Dire
                         NormalBegin();
                         break;
                     case ConsoleKey.DownArrow: // this will go down in the list of options [Need to make bounds for selected]
-                        int tmp = SubSelections[MainSelected].Length;
+                        int tmp = NormalSubSelections[MainSelected].Length;
                         if (!Entered && MainSelected < 4) MainSelected++; else if (Entered && SecondSelected < tmp - 1) SecondSelected++;
                         NormalBegin();
                         break;
