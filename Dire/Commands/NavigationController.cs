@@ -48,7 +48,7 @@ namespace Dire
             ReadKeyPresses();
 
             //Ends where the user would type
-            Console.SetCursorPosition(StartLeft, StartTop + NormalSelections.Length);
+            //Console.SetCursorPosition(StartLeft, StartTop + NormalSelections.Length);
         }
 
 
@@ -138,7 +138,7 @@ namespace Dire
                         {
                             x = (w[i, j]);
                         }
-                        Console.Write(x);
+                        Console.Write("\x1b[38;2;" + 192 + ";" + 192 + ";" + 192 + "m" + x);
                     }
                     Console.SetCursorPosition(StartLeft, StartTop + i + 1);
                 }

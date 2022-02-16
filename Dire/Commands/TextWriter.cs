@@ -10,6 +10,11 @@ namespace Dire
         private enum TextMode { Bad, Good, Selected, Normal };
         private static TextMode CurrentTextMode = TextMode.Normal;
         private static bool Special = false; // dont worry about this it's just used here
+        private static readonly object padlock = new object();
+        static int StartLeft = 0;
+        static int StartTop = 5;
+        static int posX = StartLeft;
+        static int posY = StartTop;
 
         public static void WriteLine(string input)
         {
@@ -39,25 +44,31 @@ namespace Dire
                         CurrentTextMode = TextMode.Selected;
                     goto End;
                 }
-
+                
+                
                 switch (CurrentTextMode)
                 {
                     case TextMode.Normal:
+                        Console.SetCursorPosition(posX + i, posY);
                         Console.Write("\x1b[38;2;" + 127 + ";" + 127 + ";" + 127 + "m" + $"{input[i]}");
                         break;
                     case TextMode.Bad:
+                        Console.SetCursorPosition(posX + i, posY);
                         Console.Write("\x1b[38;2;" + 255 + ";" + 0 + ";" + 0 + "m" + $"{input[i]}");
                         break;
                     case TextMode.Good:
+                        Console.SetCursorPosition(posX + i, posY);
                         Console.Write("\x1b[38;2;" + 0 + ";" + 255 + ";" + 0 + "m" + $"{input[i]}");
                         break;
                     case TextMode.Selected:
+                        Console.SetCursorPosition(posX + i, posY);
                         Console.Write("\x1b[38;2;" + 50 + ";" + 50 + ";" + 50 + "m" + $"{input[i]}");
                         break;
                     default:
                         break;
                 }
                 Thread.Sleep(20);
+                
 
                 if (input[i].ToString().Equals(".") || input[i].ToString().Equals("!") || input[i].ToString().Equals("?"))
                 {
@@ -67,7 +78,7 @@ namespace Dire
                 {
                     Thread.Sleep(200);
                 }
-            End:;
+                End:;
             }
             CurrentTextMode = TextMode.Normal;
             Console.ForegroundColor = ConsoleColor.Gray;
