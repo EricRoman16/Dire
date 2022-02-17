@@ -47,7 +47,7 @@ namespace Dire
         public static void RunDire()
         {
             Settings.Setup();
-            GE = new GameEngine(false, true);
+            GE = new GameEngine(true, true);
         }
         
     }

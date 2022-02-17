@@ -44,30 +44,42 @@ namespace Dire
                         CurrentTextMode = TextMode.Selected;
                     goto End;
                 }
-                
+
                 
                 switch (CurrentTextMode)
                 {
                     case TextMode.Normal:
-                        Console.SetCursorPosition(posX + i, posY);
-                        Console.Write("\x1b[38;2;" + 127 + ";" + 127 + ";" + 127 + "m" + $"{input[i]}");
-                        break;
+                        lock (padlock)
+                        {
+                            Console.SetCursorPosition(posX + i, posY);
+                            Console.Write("\x1b[38;2;" + 127 + ";" + 127 + ";" + 127 + "m" + $"{input[i]}");
+                            break;
+                        }
                     case TextMode.Bad:
-                        Console.SetCursorPosition(posX + i, posY);
-                        Console.Write("\x1b[38;2;" + 255 + ";" + 0 + ";" + 0 + "m" + $"{input[i]}");
-                        break;
+                        lock (padlock)
+                        {
+                            Console.SetCursorPosition(posX + i, posY);
+                            Console.Write("\x1b[38;2;" + 255 + ";" + 0 + ";" + 0 + "m" + $"{input[i]}");
+                            break;
+                        }
                     case TextMode.Good:
-                        Console.SetCursorPosition(posX + i, posY);
-                        Console.Write("\x1b[38;2;" + 0 + ";" + 255 + ";" + 0 + "m" + $"{input[i]}");
-                        break;
+                        lock (padlock)
+                        {
+                            Console.SetCursorPosition(posX + i, posY);
+                            Console.Write("\x1b[38;2;" + 0 + ";" + 255 + ";" + 0 + "m" + $"{input[i]}");
+                            break;
+                        }
                     case TextMode.Selected:
-                        Console.SetCursorPosition(posX + i, posY);
-                        Console.Write("\x1b[38;2;" + 50 + ";" + 50 + ";" + 50 + "m" + $"{input[i]}");
-                        break;
+                        lock (padlock)
+                        {
+                            Console.SetCursorPosition(posX + i, posY);
+                            Console.Write("\x1b[38;2;" + 50 + ";" + 50 + ";" + 50 + "m" + $"{input[i]}");
+                            break;
+                        }
                     default:
                         break;
                 }
-                Thread.Sleep(20);
+                Thread.Sleep(0);
                 
 
                 if (input[i].ToString().Equals(".") || input[i].ToString().Equals("!") || input[i].ToString().Equals("?"))

@@ -8,6 +8,7 @@ namespace Dire
 {
     public class NavigationController
     {
+        private static readonly object padlock = new object();
         enum Mode { Normal, MainMenu }; // Not in use currently
         Mode CurrentMode = Mode.Normal;
 
@@ -19,18 +20,16 @@ namespace Dire
         int SecondSelected = 0;
         bool Entered = false;
 
-
-        string[] NormalSelections = new string[5] { "Look", "Move", "Inventory", "Equipped", "Options" };// The Total option choices
+        string[][] DefaultSelections = new string[5][]
+        {
+            new string[] { "Look", "At", "Around", "North", "East", "South", "West"},
+            new string[] { "Move", "Towards", "North", "East", "South", "West"},
+            new string[] { "Inventory", "Use", "Equip", "Craft", "Drop" } ,
+            new string[] { "Equipped", "Remove", "Stats" } ,
+            new string[] { "Options", "Difficulty", "Save", "Load", "Music", "Docs", "Exit" }
+        };
         string[,] Write; // What is needed to write to the screen
         string[,] PastWrite;// What has been writen to the screen - Here it should be empty
-        Dictionary<int, string[]> NormalSubSelections = new Dictionary<int, string[]>()// These will be the individual Arrays/Options for each selection
-        {
-            { 0 , new string[6] { "At", "Around", "North", "East", "South", "West"}                 },
-            { 1 , new string[5] { "Towards", "North", "East", "South", "West"}                      },
-            { 2 , new string[4] { "Use", "Equip", "Craft", "Drop" }                                 },
-            { 3 , new string[2] { "Remove", "Stats" }                                               },
-            { 4 , new string[6] { "Difficulty", "Save", "Load", "Music", "Docs", "Exit" }  }
-        };
 
         #endregion
 
@@ -39,12 +38,11 @@ namespace Dire
             CurrentMode = Mode.Normal; // Might change this later
         }
 
-        public void NormalBegin()
+        public void Begin(string[][] options)
         {
             Setup();
-            
-            FillArray(Write);
-            Draw(Write, PastWrite);
+            FillArray(options);
+            Draw();
             ReadKeyPresses();
 
             //Ends where the user would type
@@ -52,11 +50,18 @@ namespace Dire
         }
 
 
-        void Setup()
+        void Setup(string[][] array)
         {
+            int length0 = array.GetLength(0);
+            int length1 = array.GetLength(1);
             Longest = 0;
-            foreach (string s in NormalSelections)
-                Longest = (s.Length > Longest) ? s.Length : Longest;
+            for(int i = 0; i < length0; i++)
+            {
+                for(int j = 0; j < length1; j++)
+                {
+                    Longest = (array[i][j].Length > Longest) ? s.Length : Longest;
+                }
+            }
             Longest += 2;
             Write = new string[10, Longest * 2 + 2];
             PastWrite = new string[10, Longest * 2 + 2];
@@ -71,48 +76,59 @@ namespace Dire
         /// <summary>
         /// Fills the write array for what will be writen to the screen
         /// </summary>
-        void FillArray(string[,] w)
+        void FillArray(string[][] array)
         {
-            int length0 = w.GetLength(0);
-            int length1 = w.GetLength(1);
-            for (int i = 0; i < length0; i++) // clears w
+            int Writelength0 = Write.GetLength(0);
+            int Writelength1 = Write.GetLength(1);
+            // clears Write
+            for (int i = 0; i < Writelength0; i++) 
             {
-                for (int j = 0; j < length1; j++)
+                for (int j = 0; j < Writelength1; j++)
                 {
-                    w[i, j] = null;
+                    Write[i, j] = null;
 
                 }
             }
 
-            int tmp = 0;
+            /*int tmp = 0;
             foreach(string s in NormalSelections) // fills w
             {
                 for(int i = 0; i < s.Length; i++)
                 {
-                    w[tmp, i] = s.Substring(i, 1);
+                    Write[tmp, i] = s.Substring(i, 1);
                 }
                 tmp++;
+            }*/
+
+            for(int i = 0; i < array.GetLength(0); i++)
+            {
+                for(int j = 0; j < array[i][0].Length; j++)
+                {
+                    Write[i,j] = array[i][0].Substring(j, 1);
+                }
             }
-            for(int i = 0; i < length0; i++) // adds pointer
+
+
+            for(int i = 0; i < Writelength0; i++) // adds pointer
             {
                 string x = (Entered) ? ">" : "<";
-                w[i, Longest - 1] = (i == MainSelected) ? x : " ";
+                Write[i, Longest - 1] = (i == MainSelected) ? x : " ";
             }
 
             if (Entered) // this is for when entered
             {
-                int length = NormalSubSelections[MainSelected].GetLength(0);
-                for (int i = 0; i < length; i++) // fills subselections to w
+                int length = DefaultSelections[MainSelected].Length;
+                for (int i = 1; i < length; i++) // fills subselections to w
                 {
-                    var l = NormalSubSelections[MainSelected].GetValue(i).ToString();
+                    var l = DefaultSelections[MainSelected][i];
                     for (int j = 0; j < l.Length; j++)
                     {
-                        Write[MainSelected + i, Longest + j + 1] = l.ToString().Substring(j, 1);
+                        Write[MainSelected + i - 1, Longest + j + 1] = l.ToString().Substring(j, 1);
                     }
                 }
                 for (float i = 2; i != 0; i--) // adds second pointer
                 {
-                    w[MainSelected + SecondSelected, Longest * 2 + 1] = "<";
+                    Write[MainSelected + SecondSelected, Longest * 2 + 1] = "<";
                 }
             }
         }
@@ -120,11 +136,11 @@ namespace Dire
         /// <summary>
         /// Draws everything in the write array
         /// </summary>
-        void Draw(string[,] w, string[,] pw)
+        void Draw()
         {
-            int length0 = w.GetLength(0);
-            int length1 = w.GetLength(1);
-            lock (this)
+            int length0 = Write.GetLength(0);
+            int length1 = Write.GetLength(1);
+            lock (padlock)
             {
                 Console.CursorVisible = false;
                 Console.SetCursorPosition(StartLeft, StartTop);
@@ -134,9 +150,9 @@ namespace Dire
                     {
                         Console.SetCursorPosition(StartLeft + j, StartTop + i);
                         string x = " ";
-                        if (w[i, j] != null && w[i, j] != pw[i, j])
+                        if (Write[i, j] != null && Write[i, j] != PastWrite[i, j])
                         {
-                            x = (w[i, j]);
+                            x = (Write[i, j]);
                         }
                         Console.Write("\x1b[38;2;" + 192 + ";" + 192 + ";" + 192 + "m" + x);
                     }
@@ -164,30 +180,30 @@ namespace Dire
                     case ConsoleKey.LeftArrow: // this will close secondary options 
                         Entered = false;
                         SecondSelected = 0;
-                        NormalBegin();
+                        Begin(DefaultSelections);
                         break;
                     case ConsoleKey.RightArrow: // this will open up secondary options
                         Entered = true;
-                        NormalBegin();
+                        Begin(DefaultSelections);
                         break;
                     case ConsoleKey.UpArrow: // this will go up in the list of options
                         if (!Entered && MainSelected > 0) MainSelected--; else if (Entered && SecondSelected > 0) SecondSelected--;
-                        NormalBegin();
+                        Begin(DefaultSelections);
                         break;
                     case ConsoleKey.DownArrow: // this will go down in the list of options [Need to make bounds for selected]
                         int tmp = NormalSubSelections[MainSelected].Length;
                         if (!Entered && MainSelected < 4) MainSelected++; else if (Entered && SecondSelected < tmp - 1) SecondSelected++;
-                        NormalBegin();
+                        Begin(DefaultSelections);
                         break;
                     case ConsoleKey.Enter: // see right arrow
                         if (Entered) Enter();
                         Entered = true;
-                        NormalBegin();
+                        Begin(DefaultSelections);
                         break;
                     case ConsoleKey.Escape: // see left arrow
                         Entered = false;
                         SecondSelected = 0;
-                        NormalBegin();
+                        Begin(DefaultSelections);
                         break;
                     default:
                         break;

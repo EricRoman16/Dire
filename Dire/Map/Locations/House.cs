@@ -7,13 +7,13 @@ namespace Dire.Map.Locations
 {
     public class House : Location
     {
-        private static new string lookedDirectAt = "A house stands tall and surprisingly pristine. You wonder what it's doing here. "; // add color as i think imma randomize stuff
-        private static new string lookedBrieflyAt = "A house ";
-        private new string at = "You are in a house";
+        private static string lookedDirectAt = "A house stands tall and surprisingly pristine"; // Must not have "." or a space at the end
+        private static string lookedBrieflyAt = "A house"; // No punctuation or spaces at the end!
+        private string at = "You are in a house.";// Basically a normal sentence
 
         private Random dice = new Random();
         private Item[] potentialItems = new Item[] { new Apple(), new Stick(), new Sword() };
-        public new List<Item> items = new List<Item>();
+        public List<Item> Items = new List<Item>();
 
         public House()
         {
@@ -25,13 +25,12 @@ namespace Dire.Map.Locations
             {
                 int x = dice.Next(0, 2);
                 if (x == 1)
-                    items.Add(i);
+                    Items.Add(i);
             }
         }
         public override string LookedDirectAt() { return lookedDirectAt; }
         public override string LookedBreiflyAt() { return lookedBrieflyAt; }
         public override string On() { return at; }
-        public override List<Item> Items() { return items; }
         public override string ToString() { return "House"; }
     }
 }

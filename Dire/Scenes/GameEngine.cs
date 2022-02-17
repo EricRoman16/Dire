@@ -51,16 +51,18 @@ namespace Dire
             //need to figure out if
 
 
+            
 
-
-            //Console.ReadKey(true);
-            NavController = new Thread(NC.NormalBegin) { Name = "NavController Thread" };
+            
+            NavController = new Thread(NC.Begin) { Name = "NavController Thread" };
             NavController.Start();
-            TextWriter.WriteLine("Hello, this is a test line to see if everything will work while \nother stuff is typing");
+            
             
             
             
         }
+
+        
 
 
 
