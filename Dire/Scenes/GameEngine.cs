@@ -35,6 +35,7 @@ namespace Dire
                 Console.WriteLine("Running Main menu sequence!");
                 Console.ReadKey(true);
                 Console.Clear();
+                Program.CURRENTGAMESTATE = GameStates.MainMenu;
                 MainMenu.DrawMainMenu();
                 NavController.Start();
             }
@@ -43,9 +44,11 @@ namespace Dire
                 //Run Intro sequence
                 Console.WriteLine("Running intro sequence!");
                 Console.ReadKey(true);
+                Program.CURRENTGAMESTATE = GameStates.IntroSequence;
                 Player PLAYER = Intro.IntroSequence();
             }
             //Initializing Main thread - starting game [Not using thread here yet]
+            //Program.CURRENTGAMESTATE = GameStates.MainGame;
             MainGameLoop();
         }
         

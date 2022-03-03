@@ -19,6 +19,7 @@ namespace Dire
         int MainSelected = 0;
         int SecondSelected = 0;
         bool Entered = false;
+        public static bool EXIT = false;
 
         public bool Showing = true;
 
@@ -62,7 +63,7 @@ namespace Dire
 
         public void Begin(string[][] options = null)
         {
-            
+            if (EXIT) return;
             if (options == null)
             {
                 switch (CurrentMode)
@@ -187,7 +188,9 @@ namespace Dire
                 
         void Enter()
         {
-            
+            //Console.SetCursorPosition(5, 5);
+            //Console.WriteLine(MainMenuSelections[MainSelected][SecondSelected]);
+            Commands.CommandEnter(MainMenuSelections[MainSelected][SecondSelected + 1]);
             // Will send X to the commands class to get processed
         }
 

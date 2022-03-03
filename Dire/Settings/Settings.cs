@@ -6,7 +6,7 @@ namespace Dire
     {
         public static void Setup()
         {
-            Console.Title = "Dire - Eric Roman  Version: " + Program.version;
+            Console.Title = "Dire - Eric Roman ~ Version: " + Program.version;
             Console.Clear();
         }
         

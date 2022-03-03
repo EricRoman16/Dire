@@ -26,11 +26,22 @@ namespace Dire
         {
             switch (command.ToLower())
             {
-                case "start":
+                case "new game":
+                    Console.Clear();
+                    Program.CURRENTGAMESTATE = GameStates.MainGame;
                     break;
-                case "options":
+                case "load": // Nothing Right Now
                     break;
-                case "exit":
+                case "music": // Nothing Right Now
+                    break;
+                case "yes":
+                    NavigationController.EXIT = true;
+                    break;
+                case "no":
+                    break;
+                default:
+                    Console.SetCursorPosition(5, 5);
+                    Console.WriteLine(command.ToLower());
                     break;
             }
         }
