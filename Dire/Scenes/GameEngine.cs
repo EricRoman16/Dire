@@ -1,4 +1,5 @@
 ﻿using Dire.Scenes.Intro;
+using Dire.Scenes;
 using System.Threading;
 using System;
 using Dire.Map.Locations;
@@ -22,13 +23,20 @@ namespace Dire
 
 
 
-        public GameEngine(bool skipMainMenu, bool skipIntro)
+        public GameEngine(bool skipMainMenu = false, bool skipIntro = false)
         {
+            //setup
+            NavController = new Thread(NC.threadStart) { Name = "NavController Thread" };
+
+
             if (!skipMainMenu)
             {
                 //Run Main menu sequence
                 Console.WriteLine("Running Main menu sequence!");
                 Console.ReadKey(true);
+                Console.Clear();
+                MainMenu.DrawMainMenu();
+                NavController.Start();
             }
             if (!skipIntro)
             {
@@ -51,11 +59,12 @@ namespace Dire
             //need to figure out if
 
 
+            //Console.WriteLine(@"⫠⫟⫞⫤⫥⫧⫪⫨⫫⫭⫬⫩⫦⫣|¦‖");
+            //Console.WriteLine(@"— ⊢⊥⊤⊣⋀⋁▷◁▶◀▲▼");
+            
             
 
             
-            NavController = new Thread(NC.Begin) { Name = "NavController Thread" };
-            NavController.Start();
             
             
             

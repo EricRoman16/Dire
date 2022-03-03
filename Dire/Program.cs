@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Dire
 {
-    public enum GameStates { Start, Setup, Running, Fight }
+    public enum GameStates { MainMenu, IntroSequence, MainGame }
     public class Program
     {
         #region Dll Color stuff
@@ -19,7 +19,7 @@ namespace Dire
 
         // Main Game variables
         public static string version = "0.0.1 Pre-Alpha";
-        public static GameStates CURRENTGAMESTATE;
+        public static GameStates CURRENTGAMESTATE = GameStates.MainGame;
         public static GameEngine GE;
 
         // Main method that the program runs first
@@ -47,7 +47,7 @@ namespace Dire
         public static void RunDire()
         {
             Settings.Setup();
-            GE = new GameEngine(true, true);
+            GE = new GameEngine(false, true);
         }
         
     }

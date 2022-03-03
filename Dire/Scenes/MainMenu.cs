@@ -18,26 +18,17 @@ namespace Dire.Scenes
         //— ⊢⊥⊤⊣⋀⋁▷◁▶◀▲▼
         public static void DrawMainMenu()
         {
-                                                                                      Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine(@"__________________________________________________"); Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("\x1b[38;2;" + 100 + ";" + 0 + ";" + 200 + "m");
             Console.WriteLine(@"        ______  _________ _______  _______        ");
             Console.WriteLine(@"       (  __  \ \__   __/(  ____ )(  ____ \       ");
             Console.WriteLine(@"       | (  \  )   ) (   | (    )|| (    \/       ");
             Console.WriteLine(@"       | |   ) |   | |   | (____)|| (__           ");
             Console.WriteLine(@"       | |   | |   | |   |     __)|  __)          ");
-            Console.WriteLine(@"       | |   ) |   | |   | (\ (   | (             ");
-            Console.WriteLine(@"       | (__/  )___) (___| ) \ \__| (____/\       ");
-            Console.WriteLine(@"       (______/ \_______/|/   \__/(_______/       "); Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine(@"__________________________________________________"); Console.ResetColor();
-            Console.WriteLine(@"                                                  ");
-            TextWriter.WriteLine("                       Play                       ");
-            TextWriter.WriteLine("                      Options                     ");
-            TextWriter.WriteLine("                       Info                       ");
-            TextWriter.WriteLine("                       Exit                       "); Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine(@"__________________________________________________"); Console.ResetColor();
-            Console.WriteLine(@"                                                  ");
-            Console.Write(">");
-            string input = Console.ReadLine(); // need to put a readinput function here
+            Console.WriteLine(@"       | |   ) |   | |   | |\ (   | (             ");
+            Console.WriteLine(@"       | (__/  )___) (___| | \ \__| (____/\       ");
+            Console.WriteLine(@"       (______/ \_______/|_/  \__/(_______/       ");
+            Console.WriteLine();
+            Console.ResetColor();
         }
 
         public static void DrawOptionsMenu()
