@@ -2,8 +2,6 @@
 using Dire.Scenes;
 using System.Threading;
 using System;
-using Dire.Map.Locations;
-using Dire.Items.Consumables;
 
 namespace Dire
 {
@@ -26,7 +24,7 @@ namespace Dire
         public GameEngine(bool skipMainMenu = false, bool skipIntro = false)
         {
             //setup
-            NavController = new Thread(NC.threadStart) { Name = "NavController Thread" };
+            //NavController = new Thread(NC.threadStart) { Name = "NavController Thread" };
 
 
             if (!skipMainMenu)
@@ -37,7 +35,8 @@ namespace Dire
                 Console.Clear();
                 Program.CURRENTGAMESTATE = GameStates.MainMenu;
                 MainMenu.DrawMainMenu();
-                NavController.Start();
+                NC.threadStart();
+                //NavController.Start();
             }
             if (!skipIntro)
             {
@@ -47,8 +46,7 @@ namespace Dire
                 Program.CURRENTGAMESTATE = GameStates.IntroSequence;
                 Player PLAYER = Intro.IntroSequence();
             }
-            //Initializing Main thread - starting game [Not using thread here yet]
-            //Program.CURRENTGAMESTATE = GameStates.MainGame;
+            
             MainGameLoop();
         }
         
@@ -59,11 +57,7 @@ namespace Dire
             //Player PLAYER = Intro.IntroSequence();
             //need to generate map as it will be randomly generator
 
-            //need to figure out if
-
-
-            //Console.WriteLine(@"⫠⫟⫞⫤⫥⫧⫪⫨⫫⫭⫬⫩⫦⫣|¦‖");
-            //Console.WriteLine(@"— ⊢⊥⊤⊣⋀⋁▷◁▶◀▲▼");
+            Console.ReadKey();
             
             
 

@@ -29,6 +29,7 @@ namespace Dire
                 case "new game":
                     Console.Clear();
                     Program.CURRENTGAMESTATE = GameStates.MainGame;
+                    NavigationController.Entered = false;
                     break;
                 case "load": // Nothing Right Now
                     break;
@@ -61,11 +62,31 @@ namespace Dire
         {
             switch (command.ToLower())
             {
-                case "Look":
+                case "look":
+                    switch (extraInfo.ToLower())
+                    {
+                        case "at":
+                            break;
+                        case "around":
+                            break;
+                        case "north":
+                            break;
+                        case "east":
+                            break;
+                        case "south":
+                            break;
+                        case "west":
+                            break;
+                    }
+                    //"At", "Around", "North", "East", "South", "West"
                     break;
-                case "Move":
+                case "move":
                     break;
-                case "exit":
+                case "inventory":
+                    break;
+                case "equipped":
+                    break;
+                case "options":
                     break;
             }
         }

@@ -18,7 +18,7 @@ namespace Dire
         int Longest;
         int MainSelected = 0;
         int SecondSelected = 0;
-        bool Entered = false;
+        public static bool Entered = false;
         public static bool EXIT = false;
 
         public bool Showing = true;
@@ -63,15 +63,29 @@ namespace Dire
 
         public void Begin(string[][] options = null)
         {
-            if (EXIT) return;
+            if (EXIT) 
+            {
+                int Writelength0 = Write.GetLength(0);
+                int Writelength1 = Write.GetLength(1);
+                for (int i = 0; i < Writelength0; i++)
+                {
+                    for (int j = 0; j < Writelength1; j++)
+                    {
+                        Write[i, j] = " ";
+
+                    }
+                }
+                Draw();
+                return;
+            }
             if (options == null)
             {
-                switch (CurrentMode)
+                switch (Program.CURRENTGAMESTATE)
                 {
-                    case Mode.MainMenu:
+                    case GameStates.MainMenu:
                         options = MainMenuSelections;
                         break;
-                    case Mode.Normal:
+                    case GameStates.MainGame:
                         options = DefaultSelections;
                         break;
                 }
@@ -190,7 +204,11 @@ namespace Dire
         {
             //Console.SetCursorPosition(5, 5);
             //Console.WriteLine(MainMenuSelections[MainSelected][SecondSelected]);
-            Commands.CommandEnter(MainMenuSelections[MainSelected][SecondSelected + 1]);
+            if (Program.CURRENTGAMESTATE == GameStates.MainGame)
+                Commands.CommandEnter(MainMenuSelections[MainSelected][0], MainMenuSelections[MainSelected][SecondSelected + 1]);
+            if (Program.CURRENTGAMESTATE == GameStates.MainMenu)
+                Commands.CommandEnter(MainMenuSelections[MainSelected][SecondSelected + 1]);
+
             // Will send X to the commands class to get processed
         }
 
@@ -198,7 +216,7 @@ namespace Dire
         {
             Console.WriteLine();
             //Console.WriteLine("press down arrow keys!");
-            while (true)
+            while (!EXIT)
             {
                 ConsoleKey key = Console.ReadKey(true).Key;
                 switch (key)
@@ -223,7 +241,6 @@ namespace Dire
                         break;
                     case ConsoleKey.Enter: // see right arrow
                         if (Entered) Enter();
-                        Entered = true;
                         Begin();
                         break;
                     case ConsoleKey.Escape: // see left arrow
