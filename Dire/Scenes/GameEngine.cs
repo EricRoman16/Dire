@@ -59,7 +59,10 @@ namespace Dire
 
             Console.ReadKey();
             
-            
+            //need to set up function to display location
+            //need to set up function to display action/status
+            //need to set up function to display current place text (main game text)
+            //need to set up function to display nav controller 
 
             
             

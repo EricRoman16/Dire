@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dire.Map.Locations;
+using System;
 using System.Runtime.InteropServices;
 
 namespace Dire
@@ -36,10 +37,12 @@ namespace Dire
 
             //NavigationController NAVCTRL = new NavigationController();
 
+            House h = new House();
+            Console.WriteLine(h.GetLookedDirectAt());
+            Console.ReadKey();
 
 
-
-            RunDire();
+            //RunDire();
 
         }
 

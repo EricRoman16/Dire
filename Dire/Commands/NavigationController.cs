@@ -178,25 +178,23 @@ namespace Dire
         {
             int length0 = Write.GetLength(0);
             int length1 = Write.GetLength(1);
-            lock (padlock)
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(StartLeft, StartTop);
+            for (int i = 0; i < length0; i++)
             {
-                Console.CursorVisible = false;
-                Console.SetCursorPosition(StartLeft, StartTop);
-                for (int i = 0; i < length0; i++)
+                for (int j = 0; j < length1; j++)
                 {
-                    for (int j = 0; j < length1; j++)
+                    Console.SetCursorPosition(StartLeft + j, StartTop + i);
+                    string x = " ";
+                    if (Write[i, j] != null && Write[i, j] != PastWrite[i, j])
                     {
-                        Console.SetCursorPosition(StartLeft + j, StartTop + i);
-                        string x = " ";
-                        if (Write[i, j] != null && Write[i, j] != PastWrite[i, j])
-                        {
-                            x = (Write[i, j]);
-                        }
-                        Console.Write("\x1b[38;2;" + 192 + ";" + 192 + ";" + 192 + "m" + x);
+                        x = (Write[i, j]);
                     }
-                    Console.SetCursorPosition(StartLeft, StartTop + i + 1);
+                    Console.Write("\x1b[38;2;" + 192 + ";" + 192 + ";" + 192 + "m" + x);
                 }
+                Console.SetCursorPosition(StartLeft, StartTop + i + 1);
             }
+            
 
         }
                 

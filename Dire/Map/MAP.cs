@@ -6,23 +6,43 @@ namespace Dire
 {
     public class MAP
     {
-        // This will be an object that holds a map inside of it
+        #region Variables
+        int[,] RealMap = new int[10, 10];
+        List<Location> Locations = new List<Location>();
 
 
-        public Location[,] RealMap = new Location[10, 10];
+        #endregion
 
-        public void callingFunctions(string s)
+
+
+        public MAP()
         {
-            foreach(Location loc in RealMap)
-            {
-                //loc.createPositions();
-                
-            }
-            
+            QuickSetup();
         }
 
-        
-        public string getLocationText(string direction, int xPos, int yPos)
+        private void QuickSetup()
+        {
+            for(int i = 0; i < RealMap.GetLength(0); i++)
+            {
+                for (int w = 0; w < RealMap.GetLength(1); w++)
+                {
+                    RealMap[i, w] = 0;
+                }
+            }
+        }
+
+        //Goes through Locations list to find a location with the searchID (returns null if not found)
+        private Location GetLocationByID(int searchID)
+        {
+            foreach(Location loc in Locations)
+            {
+                if (loc.ID == searchID)
+                    return loc;
+            }
+            return null;
+        }
+        //Gets the text of the Location at a certain world point
+        public string GetLocationText(string direction, int xPos, int yPos)
         {
             string s = "";
             switch (direction)
@@ -30,7 +50,7 @@ namespace Dire
                 case "North":
                     try
                     {
-                        s = RealMap[xPos, yPos - 1].LookedDirectAt();
+                        s = GetLocationByID(RealMap[xPos, yPos - 1]).GetLookedDirectAt();
                     }
                     catch (Exception)
                     {
@@ -40,7 +60,7 @@ namespace Dire
                 case "East":
                     try
                     {
-                        s = RealMap[xPos + 1, yPos].LookedDirectAt();
+                        s = GetLocationByID(RealMap[xPos + 1, yPos]).GetLookedDirectAt();
                     }
                     catch (Exception)
                     {
@@ -50,7 +70,7 @@ namespace Dire
                 case "South":
                     try
                     {
-                        s = RealMap[xPos, yPos + 1].LookedDirectAt();
+                        s = GetLocationByID(RealMap[xPos, yPos + 1]).GetLookedDirectAt();
                     }
                     catch (Exception)
                     {
@@ -60,7 +80,7 @@ namespace Dire
                 case "West":
                     try
                     {
-                        s = RealMap[xPos - 1, yPos].LookedDirectAt();
+                        s = GetLocationByID(RealMap[xPos - 1, yPos]).GetLookedDirectAt();
                     }
                     catch (Exception)
                     {
@@ -68,30 +88,33 @@ namespace Dire
                     }
                     break;
                 case "Brief":
+                    s = GetBriefLocationText(xPos, yPos);
                     break;
             }
             if (direction.ToLower() != "brief")
                 s += $"to the {direction}.";
             return s;
         }
-        public string getBriefLocationText(int xPos, int yPos) // Might need to redo this to make it more reader friendly
+        //Gets brief text of all locations around players location
+        private string GetBriefLocationText(int xPos, int yPos)
         {
             string s = "";
-            s += $"{RealMap[xPos, yPos - 1].LookedBreiflyAt()} to the North.";
-            s += $"{RealMap[xPos + 1, yPos].LookedBreiflyAt()} to the East.";
-            s += $"{RealMap[xPos, yPos + 1].LookedBreiflyAt()} to the South.";
-            s += $"{RealMap[xPos - 1, yPos].LookedBreiflyAt()} to the West.";
+            s += $"{GetLocationByID(RealMap[xPos, yPos - 1]).GetLookedBreiflyAt()} to the North.";
+            s += $"{GetLocationByID(RealMap[xPos + 1, yPos]).GetLookedBreiflyAt()} to the East.";
+            s += $"{GetLocationByID(RealMap[xPos, yPos + 1]).GetLookedBreiflyAt()} to the South.";
+            s += $"{GetLocationByID(RealMap[xPos - 1, yPos]).GetLookedBreiflyAt()} to the West.";
             return s;
         }
-        public string getAtLocationText(int xPos, int yPos)
+        //Gets the text for the specified world point location
+        public string GetAtLocationText(int xPos, int yPos)
         {
-            string s = RealMap[xPos, yPos].On();
+            string s = GetLocationByID(RealMap[xPos, yPos]).On();
             return s;
         }
         
 
         // Not in final form
-        public void MAP_GENERATOR(Location[,] map)
+        private void MAP_GENERATOR(Location[,] map)
         {
             //creating the temporary map to generate onto
             int sizeX = map.GetLength(0);
@@ -132,6 +155,22 @@ namespace Dire
             
             
         }
+
+
+
+        /* Notes:
+         * 
+         * Location Codes:
+         * 0 = null
+         * 1 = House
+         * 2 = Lake
+         * 3 = Plains / Field
+         * 4 = Temple
+         * 5 = Dungeon
+         * 6 = Forest
+         * 
+         */ 
+
 
 
     }// end of MAP
