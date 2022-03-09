@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Dire.Map.Locations
 {
-    public class House : Location
+    class Forest : Location
     {
         //public int ID;
         private readonly new string LookedDirectAt = "A house stands tall and surprisingly pristine"; // Must not have "." or a space at the end
@@ -14,10 +14,10 @@ namespace Dire.Map.Locations
 
         private Random dice = new Random();
         private Item[] potentialItems = new Item[] { new Apple(), new Stick(), new Sword() };
-        
 
 
-        public House(int id):base(id)
+
+        public Forest(int id) : base(id)
         {
             base.LookedBrieflyAt = LookedBrieflyAt;
             base.LookedDirectAt = LookedDirectAt;
@@ -27,14 +27,16 @@ namespace Dire.Map.Locations
         private List<Item> SetItems()
         {
             List<Item> temp = new List<Item>();
-            foreach(Item i in potentialItems)
+            foreach (Item i in potentialItems)
             {
                 int x = dice.Next(0, 2);
-                if (x < 2) // Change probability here
+                if (x == 1)
                     temp.Add(i);
             }
             return temp;
         }
-        public override string ToString() { return "House"; }
+        public override string ToString() { return "Forest"; }
+
+
     }
 }

@@ -46,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AreaWriter.cs" />
     <Compile Include="Commands\FileReader.cs" />
+    <Compile Include="Map\Locations\Forest.cs" />
     <Compile Include="Quests\Quest.cs" />
     <Compile Include="Scenes\GameEngine.cs" />
     <Compile Include="Items\Consumables\Apple.cs" />

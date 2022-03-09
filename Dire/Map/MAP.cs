@@ -13,13 +13,15 @@ namespace Dire
 
         #endregion
 
-
-
+        #region Constructor
         public MAP()
         {
             QuickSetup();
         }
+        #endregion
 
+        #region Methods
+        //Just does a quick fill of the entire map to 0's
         private void QuickSetup()
         {
             for(int i = 0; i < RealMap.GetLength(0); i++)
@@ -30,7 +32,6 @@ namespace Dire
                 }
             }
         }
-
         //Goes through Locations list to find a location with the searchID (returns null if not found)
         private Location GetLocationByID(int searchID)
         {
@@ -41,7 +42,7 @@ namespace Dire
             }
             return null;
         }
-        //Gets the text of the Location at a certain world point
+        //Gets the text of the Location at a certain world point (Used for looking in a direction)
         public string GetLocationText(string direction, int xPos, int yPos)
         {
             string s = "";
@@ -105,14 +106,12 @@ namespace Dire
             s += $"{GetLocationByID(RealMap[xPos - 1, yPos]).GetLookedBreiflyAt()} to the West.";
             return s;
         }
-        //Gets the text for the specified world point location
+        //Gets the text for the specified world point location (used for on position)
         public string GetAtLocationText(int xPos, int yPos)
         {
             string s = GetLocationByID(RealMap[xPos, yPos]).On();
             return s;
         }
-        
-
         // Not in final form
         private void MAP_GENERATOR(Location[,] map)
         {
@@ -138,7 +137,7 @@ namespace Dire
                     switch (tmpMap[i, j])
                     {
                         case 0:
-                            map[i, j] = new House();
+                            map[i, j] = new House(1);//CHANGE THIS LATER!!! ID CANNOT BE A SOLID NUMBER
                             break;
                         case 1:
                             break;
@@ -156,7 +155,7 @@ namespace Dire
             
         }
 
-
+        #endregion
 
         /* Notes:
          * 
@@ -169,7 +168,7 @@ namespace Dire
          * 5 = Dungeon
          * 6 = Forest
          * 
-         */ 
+         */
 
 
 

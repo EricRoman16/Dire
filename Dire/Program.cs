@@ -37,8 +37,13 @@ namespace Dire
 
             //NavigationController NAVCTRL = new NavigationController();
 
-            House h = new House();
-            Console.WriteLine(h.GetLookedDirectAt());
+            House house = new House(12);
+            Console.WriteLine(house.GetLookedDirectAt());
+            Console.WriteLine(house.GetLookedBreiflyAt());
+            Console.WriteLine(house.On());
+            Console.WriteLine(house.ID);
+            foreach (Item i in house.GetItems())
+                Console.WriteLine(i.ToString());
             Console.ReadKey();
 
 

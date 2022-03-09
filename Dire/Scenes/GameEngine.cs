@@ -10,6 +10,7 @@ namespace Dire
     {
         #region Variables
         NavigationController NC = new NavigationController();
+        public MAP Map = new MAP();
         #endregion
 
         #region Threads
