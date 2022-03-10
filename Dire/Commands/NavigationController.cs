@@ -13,8 +13,8 @@ namespace Dire
         Mode CurrentMode = Mode.MainMenu;
 
         #region Variables
-        int StartLeft = 4;
-        int StartTop = 12;
+        int StartLeft = 5;
+        int StartTop = 10;
         int Longest;
         int MainSelected = 0;
         int SecondSelected = 0;

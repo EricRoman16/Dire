@@ -8,11 +8,39 @@ namespace Dire
 {
     public static class AreaWriter
     {
+        static int StartLeft = 5;
+        static int StartTop = 4;
+        static int TextBoxLength = 20;
+        static int TextBoxHeight = 5;
 
         public static void WriteContext(MAP map, int xPos, int yPos)
         {
+            Console.SetCursorPosition(StartLeft, StartTop);
             string text = map.GetAtLocationText(xPos,yPos);
             Console.WriteLine(text);
+            
+            Console.SetCursorPosition(StartLeft + TextBoxLength, StartTop + TextBoxHeight);
+            Console.WriteLine("X");
+
+            Console.ReadKey();
+            ClearTextBox();
+        }
+
+        private static string FormatText(string rawText) //gonna format the text given to be perfect to type
+        {
+            return "";
+        }
+
+        public static void ClearTextBox()// will loop through the entire text box and clear it
+        {
+            for(int i = 0; i < TextBoxLength; i++)
+            {
+                for(int j = 0; j < TextBoxHeight; j++)
+                {
+                    Console.SetCursorPosition(i + StartLeft, j + StartTop);
+                    Console.WriteLine("X");
+                }
+            }
         }
 
     }

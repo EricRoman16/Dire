@@ -10,7 +10,9 @@ namespace Dire
     {
         #region Variables
         NavigationController NC = new NavigationController();
+
         public MAP Map = new MAP();
+        public Player PLAYER;
         #endregion
 
         #region Threads
@@ -36,8 +38,9 @@ namespace Dire
                 Console.Clear();
                 Program.CURRENTGAMESTATE = GameStates.MainMenu;
                 MainMenu.DrawMainMenu();
-                NC.threadStart();
-                //NavController.Start();
+                //NC.threadStart();
+                NC.Begin(); //[Gonna need to change up the Navigation controller class to static cuz it seems better that way]
+                //NavController.Start();                            ^^^^^^^^^       ^^^^^^^^
             }
             if (!skipIntro)
             {
@@ -45,19 +48,22 @@ namespace Dire
                 Console.WriteLine("Running intro sequence!");
                 Console.ReadKey(true);
                 Program.CURRENTGAMESTATE = GameStates.IntroSequence;
-                Player PLAYER = Intro.IntroSequence();
+                PLAYER = Intro.IntroSequence();
             }
             
             MainGameLoop();
         }
-        
-        
+
+
         public void MainGameLoop()
         {
+            Program.CURRENTGAMESTATE = GameStates.MainGame;
             // need to make player
             //Player PLAYER = Intro.IntroSequence();
             //need to generate map as it will be randomly generator
-
+            PLAYER = new Player(" ", 10, new int[] { 5, 5 }, Player.PlayerStates.Exploring);
+            AreaWriter.WriteContext(Map, PLAYER.Pos[0], PLAYER.Pos[1]);
+            NC.Begin();
             Console.ReadKey();
             
             //need to set up function to display location

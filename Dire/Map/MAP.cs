@@ -7,21 +7,23 @@ namespace Dire
     public class MAP
     {
         #region Variables
-        int[,] RealMap = new int[10, 10];
+        public int[,] RealMap = new int[10, 10];
+        private Random dice = new Random();
         List<Location> Locations = new List<Location>();
-
+        int AvailableLocations = 2; //change this based on locations made
+        int CurrentAvailableID = 0;
 
         #endregion
 
         #region Constructor
         public MAP()
         {
-            QuickSetup();
+            MAP_GENERATOR();
         }
         #endregion
 
         #region Methods
-        //Just does a quick fill of the entire map to 0's
+        //Just does a quick fill of the entire map to 0's (Might be deleted later)
         private void QuickSetup()
         {
             for(int i = 0; i < RealMap.GetLength(0); i++)
@@ -29,6 +31,7 @@ namespace Dire
                 for (int w = 0; w < RealMap.GetLength(1); w++)
                 {
                     RealMap[i, w] = 0;
+                    dice.Next();
                 }
             }
         }
@@ -113,37 +116,51 @@ namespace Dire
             return s;
         }
         // Not in final form
-        private void MAP_GENERATOR(Location[,] map)
+        private void MAP_GENERATOR()
         {
-            //creating the temporary map to generate onto
-            int sizeX = map.GetLength(0);
-            int sizeY = map.GetLength(1);
-            int[,] tmpMap = new int[sizeX,sizeY];
-            Random dice = new Random();
-            //using a for loop to set all numbers to 0
+            int sizeX = RealMap.GetLength(0);
+            int sizeY = RealMap.GetLength(1);
+
+            //Fills the RealMap with random numbers corresponding to Locations
             for (int i = 0; i < sizeX; i++)
             {
                 for(int j = 0; j < sizeY; j++)
                 {
-                    int x = dice.Next(4);
-                    x = 0; //remove this to not make everything a house
-                    tmpMap[i, j] = x;
+                    int x = dice.Next(AvailableLocations);
+                    RealMap[i, j] = x;
                 }
             }
+
+            //Refactoring RealMap to comply with map rules
+
+
+            //This will set all object Locations!!! ~ Should do last
             for (int i = 0; i < sizeX; i++)
             {
                 for (int j = 0; j < sizeY; j++)
                 {
-                    switch (tmpMap[i, j])
+                    switch (RealMap[i, j])
                     {
                         case 0:
-                            map[i, j] = new House(1);//CHANGE THIS LATER!!! ID CANNOT BE A SOLID NUMBER
+
+                            RealMap[i, j] = CurrentAvailableID;
+                            Locations.Add(new Forest(CurrentAvailableID));
+                            CurrentAvailableID++;
                             break;
                         case 1:
+                            RealMap[i, j] = CurrentAvailableID;
+                            Locations.Add(new House(CurrentAvailableID));
+                            CurrentAvailableID++;
                             break;
                         case 2:
+                            RealMap[i, j] = CurrentAvailableID;
+                            Locations.Add(new Forest(CurrentAvailableID)); //change object to location
+                            CurrentAvailableID++;
                             break;
                         case 3:
+                            RealMap[i, j] = CurrentAvailableID;
+                            Locations.Add(new Forest(CurrentAvailableID)); //change object to location
+                            CurrentAvailableID++;
                             break;
                         default:
                             break;
@@ -161,13 +178,15 @@ namespace Dire
          * 
          * Location Codes:
          * 0 = null
-         * 1 = House
-         * 2 = Lake
+         * 1 = House ~ 2
+         * 2 = Lake ~ 3
          * 3 = Plains / Field
          * 4 = Temple
          * 5 = Dungeon
          * 6 = Forest
          * 
+         * 
+         * ~ = how many there can be in the map
          */
 
 
