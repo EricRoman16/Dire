@@ -15,41 +15,17 @@ namespace Dire
         public Player PLAYER;
         #endregion
 
-        #region Threads
-        //Thread GameLoop;
-        Thread NavController;
-        //static Thread MusicPlayer = new Thread(AudioPlayer.PlayMusic) { Name = "MusicPlayer" };
-        #endregion
-
-
 
 
         public GameEngine(bool skipMainMenu = false, bool skipIntro = false)
         {
-            //setup
-            //NavController = new Thread(NC.threadStart) { Name = "NavController Thread" };
+
 
 
             if (!skipMainMenu)
-            {
-                //Run Main menu sequence
-                Console.WriteLine("Running Main menu sequence!");
-                Console.ReadKey(true);
-                Console.Clear();
-                Program.CURRENTGAMESTATE = GameStates.MainMenu;
-                MainMenu.DrawMainMenu();
-                //NC.threadStart();
-                NC.Begin(); //[Gonna need to change up the Navigation controller class to static cuz it seems better that way]
-                //NavController.Start();                            ^^^^^^^^^       ^^^^^^^^
-            }
+                MainMenuLoop();
             if (!skipIntro)
-            {
-                //Run Intro sequence
-                Console.WriteLine("Running intro sequence!");
-                Console.ReadKey(true);
-                Program.CURRENTGAMESTATE = GameStates.IntroSequence;
-                PLAYER = Intro.IntroSequence();
-            }
+                IntroLoop();
             
             MainGameLoop();
         }
@@ -58,13 +34,14 @@ namespace Dire
         public void MainGameLoop()
         {
             Program.CURRENTGAMESTATE = GameStates.MainGame;
-            // need to make player
-            //Player PLAYER = Intro.IntroSequence();
-            //need to generate map as it will be randomly generator
-            PLAYER = new Player(" ", 10, new int[] { 5, 5 }, Player.PlayerStates.Exploring);
+
+
+            if(PLAYER == null)
+                PLAYER = new Player(" ", 10, new int[] { 5, 5 }, Player.PlayerStates.Exploring);
+
             AreaWriter.WriteContext(Map, PLAYER.Pos[0], PLAYER.Pos[1]);
-            NC.Begin();
-            Console.ReadKey();
+            
+            NC.Begin(true);
             
             //need to set up function to display location
             //need to set up function to display action/status
@@ -75,12 +52,29 @@ namespace Dire
             
             
             
+            Console.ReadKey();
             
         }
 
-        
+        private void IntroLoop()
+        {
+            //Run Intro sequence
+            Console.WriteLine("Running intro sequence!");
+            Console.ReadKey(true);
+            Program.CURRENTGAMESTATE = GameStates.IntroSequence;
+            PLAYER = Intro.IntroSequence();
+        }
 
-
+        private void MainMenuLoop()
+        {
+            //Run Main menu sequence
+            Console.WriteLine("Running Main menu sequence!");
+            Console.ReadKey(true);
+            Console.Clear();
+            Program.CURRENTGAMESTATE = GameStates.MainMenu;
+            MainMenu.DrawMainMenu();
+            NC.Begin();
+        }
 
     }
 }

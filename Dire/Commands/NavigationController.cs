@@ -8,9 +8,6 @@ namespace Dire
 {
     public class NavigationController
     {
-        private static readonly object padlock = new object();
-        enum Mode { Normal, MainMenu }; 
-        Mode CurrentMode = Mode.MainMenu;
 
         #region Variables
         int StartLeft = 5;
@@ -20,9 +17,7 @@ namespace Dire
         int SecondSelected = 0;
         public static bool Entered = false;
         public static bool EXIT = false;
-
         public bool Showing = true;
-
 
         public string[][] DefaultSelections = new string[5][]
         {
@@ -45,24 +40,13 @@ namespace Dire
 
         public NavigationController()
         {
-            CurrentMode = Mode.MainMenu; // Might change this later
+            EXIT = false;
         }
 
-        public void threadStart()
+        public void Begin(bool reset = false, string[][] options = null)
         {
-            switch (CurrentMode)
-            {
-                case Mode.MainMenu:
-                    Begin(MainMenuSelections);
-                    break;
-                case Mode.Normal:
-                    Begin(DefaultSelections);
-                    break;
-            }
-        }
-
-        public void Begin(string[][] options = null)
-        {
+            if (reset)
+                EXIT = false;
             if (EXIT) 
             {
                 int Writelength0 = Write.GetLength(0);
@@ -254,7 +238,6 @@ namespace Dire
                         Begin();
                         break;
                     case ConsoleKey.W: // This auto switches to normal options
-                        CurrentMode = Mode.Normal;
                         MainSelected = 0;
                         SecondSelected = 0;
                         Entered = false;
@@ -264,6 +247,7 @@ namespace Dire
                         break;
                 }
             }
+            
         }
 
         /*

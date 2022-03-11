@@ -35,18 +35,9 @@ namespace Dire
             //Console.Write("\x1b[38;2;" + i + ";" + i + ";" + i + "m h");
 
 
-            //NavigationController NAVCTRL = new NavigationController();
+            
 
-            /*House house = new House(12);
-            Console.WriteLine(house.GetLookedDirectAt());
-            Console.WriteLine(house.GetLookedBreiflyAt());
-            Console.WriteLine(house.On());
-            Console.WriteLine(house.ID);
-            foreach (Item i in house.GetItems())
-                Console.WriteLine(i.ToString());
-            Console.ReadKey();
 
-            Console.Clear();*/
             RunDire();
 
         }
@@ -55,7 +46,7 @@ namespace Dire
         public static void RunDire()
         {
             Settings.Setup();
-            GE = new GameEngine(true, true);
+            GE = new GameEngine(false, true);
         }
         
     }

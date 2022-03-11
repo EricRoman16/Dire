@@ -30,6 +30,7 @@ namespace Dire
                     Console.Clear();
                     Program.CURRENTGAMESTATE = GameStates.MainGame;
                     NavigationController.Entered = false;
+                    NavigationController.EXIT = true;
                     break;
                 case "load": // Nothing Right Now
                     break;

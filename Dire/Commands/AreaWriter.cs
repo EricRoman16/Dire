@@ -15,20 +15,16 @@ namespace Dire
 
         public static void WriteContext(MAP map, int xPos, int yPos)
         {
+            ClearTextBox();
             Console.SetCursorPosition(StartLeft, StartTop);
             string text = map.GetAtLocationText(xPos,yPos);
-            Console.WriteLine(text);
+            Console.WriteLine(FormatText(text));
             
-            Console.SetCursorPosition(StartLeft + TextBoxLength, StartTop + TextBoxHeight);
-            Console.WriteLine("X");
-
-            Console.ReadKey();
-            ClearTextBox();
         }
 
         private static string FormatText(string rawText) //gonna format the text given to be perfect to type
         {
-            return "";
+            return rawText;
         }
 
         public static void ClearTextBox()// will loop through the entire text box and clear it
@@ -38,7 +34,7 @@ namespace Dire
                 for(int j = 0; j < TextBoxHeight; j++)
                 {
                     Console.SetCursorPosition(i + StartLeft, j + StartTop);
-                    Console.WriteLine("X");
+                    Console.WriteLine(" ");
                 }
             }
         }
