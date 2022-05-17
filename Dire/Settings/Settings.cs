@@ -7,6 +7,7 @@ namespace Dire
         public static void Setup()
         {
             Console.Title = "Dire - Eric Roman ~ Version: " + Program.version;
+            Console.SetWindowSize(100, 30);
             Console.Clear();
         }
         

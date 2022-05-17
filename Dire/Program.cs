@@ -36,7 +36,7 @@ namespace Dire
 
             Console.SetCursorPosition(0, 0);
             Console.Write("0");
-            Console.SetCursorPosition(100, 0);
+            Console.SetCursorPosition(119, 0);
             Console.Write("2");
             Console.SetCursorPosition(0, 28);
             Console.Write("3");
@@ -47,7 +47,7 @@ namespace Dire
             
             Console.ReadKey();
 
-            //RunDire();
+            RunDire();
 
         }
 

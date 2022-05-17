@@ -47,30 +47,12 @@ namespace Dire
         {
             
 
+
+
             FillArray(options);
             
-            
-
             DrawRender();
             Finish();
-        }
-        /// <summary>
-        /// Final steps that need to be done
-        /// </summary>
-        private static void Finish()
-        {
-            // Sets past render to current render
-            for (int i = 0; i < CurrentRender.GetLength(0); i++)
-            {
-                for (int j = 0; j < CurrentRender.GetLength(1); j++)
-                    PastRender[i, j] = CurrentRender[i, j];
-            }
-            // Clears CurrentRender
-            for (int i = 0; i < CurrentRender.GetLength(0); i++)
-            {
-                for (int j = 0; j < CurrentRender.GetLength(1); j++)
-                    CurrentRender[i, j] = null;
-            }
         }
 
         private static void FillArray(string[][] array)
@@ -107,6 +89,25 @@ namespace Dire
         }
                 
         
+        /// <summary>
+        /// Final steps that need to be done
+        /// </summary>
+        private static void Finish()
+        {
+            // Sets past render to current render
+            PastRender = new string[CurrentRender.GetLength(0), CurrentRender.GetLength(1)];
+            for (int i = 0; i < CurrentRender.GetLength(0); i++)
+            {
+                for (int j = 0; j < CurrentRender.GetLength(1); j++)
+                    PastRender[i, j] = CurrentRender[i, j];
+            }
+            // Clears CurrentRender
+            for (int i = 0; i < CurrentRender.GetLength(0); i++)
+            {
+                for (int j = 0; j < CurrentRender.GetLength(1); j++)
+                    CurrentRender[i, j] = null;
+            }
+        }
 
         
 
