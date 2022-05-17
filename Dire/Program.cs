@@ -34,11 +34,20 @@ namespace Dire
             //Console.Write("\x1b[48;5;" + i + "m*");
             //Console.Write("\x1b[38;2;" + i + ";" + i + ";" + i + "m h");
 
+            Console.SetCursorPosition(0, 0);
+            Console.Write("0");
+            Console.SetCursorPosition(100, 0);
+            Console.Write("2");
+            Console.SetCursorPosition(0, 28);
+            Console.Write("3");
+            Console.SetCursorPosition(100, 28);
+            Console.Write("4");
 
             
+            
+            Console.ReadKey();
 
-
-            RunDire();
+            //RunDire();
 
         }
 

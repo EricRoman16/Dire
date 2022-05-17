@@ -60,7 +60,7 @@
     <Compile Include="Map\Locations\Location.cs" />
     <Compile Include="Music\AudioPlayer.cs" />
     <Compile Include="Commands\Commands.cs" />
-    <Compile Include="Commands\NavigationController.cs" />
+    <Compile Include="Commands\ScreenRenderer.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Items\Weapons\Sword.cs" />

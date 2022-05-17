@@ -9,7 +9,7 @@ namespace Dire
     public class GameEngine
     {
         #region Variables
-        NavigationController NC = new NavigationController();
+        //ScreenRenderer NC = new ScreenRenderer();
 
         public MAP Map = new MAP();
         public Player PLAYER;
@@ -36,12 +36,11 @@ namespace Dire
             Program.CURRENTGAMESTATE = GameStates.MainGame;
 
 
-            if(PLAYER == null)
-                PLAYER = new Player(" ", 10, new int[] { 5, 5 }, Player.PlayerStates.Exploring);
+            if(PLAYER == null) PLAYER = new Player(" ", 10, new int[] { 5, 5 }, Player.PlayerStates.Exploring);
 
             AreaWriter.WriteContext(Map, PLAYER.Pos[0], PLAYER.Pos[1]);
             
-            NC.Begin(true);
+            //NC.StartRender(true);
             
             //need to set up function to display location
             //need to set up function to display action/status
@@ -68,12 +67,12 @@ namespace Dire
         private void MainMenuLoop()
         {
             //Run Main menu sequence
-            Console.WriteLine("Running Main menu sequence!");
-            Console.ReadKey(true);
+            //Console.WriteLine("Running Main menu sequence!");
+            //Console.ReadKey(true);
             Console.Clear();
             Program.CURRENTGAMESTATE = GameStates.MainMenu;
             MainMenu.DrawMainMenu();
-            NC.Begin();
+            //NC.StartRender();
         }
 
     }

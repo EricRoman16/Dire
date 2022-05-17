@@ -29,15 +29,15 @@ namespace Dire
                 case "new game":
                     Console.Clear();
                     Program.CURRENTGAMESTATE = GameStates.MainGame;
-                    NavigationController.Entered = false;
-                    NavigationController.EXIT = true;
+                    ScreenRenderer.Entered = false;
+                    ScreenRenderer.EXIT = true;
                     break;
                 case "load": // Nothing Right Now
                     break;
                 case "music": // Nothing Right Now
                     break;
                 case "yes":
-                    NavigationController.EXIT = true;
+                    ScreenRenderer.EXIT = true;
                     break;
                 case "no":
                     break;

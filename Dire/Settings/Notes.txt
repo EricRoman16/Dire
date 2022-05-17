@@ -82,3 +82,5 @@ Program > Main Menu > Intro > (Game Loop | Fight Loop | Conversation Loop) > Sav
 	Equipped > {Remove, Stats}, 
 	Options > {Difficulty > {Nightmare, Hard, Normal, Easy}, Save, Load, Music > {Yes, No}, Documentation, Exit > {Yes, No}}
 
+	I should make it have a screen renderer so that it renders the top info items () then it starts the typewriter text and after that finishes
+	then it displays the options
