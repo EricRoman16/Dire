@@ -33,18 +33,12 @@ namespace Dire
 
             //Console.Write("\x1b[48;5;" + i + "m*");
             //Console.Write("\x1b[38;2;" + i + ";" + i + ";" + i + "m h");
-
-            Console.SetCursorPosition(0, 0);
-            Console.Write("0");
-            Console.SetCursorPosition(119, 0);
-            Console.Write("2");
-            Console.SetCursorPosition(0, 28);
-            Console.Write("3");
-            Console.SetCursorPosition(100, 28);
-            Console.Write("4");
-
             
             
+            //UITest();
+
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.WriteLine("⫠⫟⫞⫤⫥⫧⫪⫨⫫⫭⫬⫩⫦⫣|¦‖");
             Console.ReadKey();
 
             RunDire();
@@ -58,6 +52,18 @@ namespace Dire
             GE = new GameEngine(false, true);
         }
         
+        public static void UITest()
+        {
+            // (119,29)
+            Console.SetCursorPosition(4, 0);
+            Console.Write("Harthden - Old Hut");
+            Console.SetCursorPosition(100, 0);
+            Console.Write("In Conversation");
+            Console.SetCursorPosition(1, 3);
+            Console.Write("\tWorld descriptions here");
+            Console.SetCursorPosition(4, 10);
+            Console.Write("Options start here");
+        }
     }
 }
 
