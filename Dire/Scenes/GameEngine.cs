@@ -39,15 +39,19 @@ namespace Dire
             if(PLAYER == null) PLAYER = new Player(" ", 10, new int[] { 5, 5 }, Player.PlayerStates.Exploring);
 
             AreaWriter.WriteContext(Map, PLAYER.Pos[0], PLAYER.Pos[1]);
-            
+
             //NC.StartRender(true);
-            
+
             //need to set up function to display location
             //need to set up function to display action/status
             //need to set up function to display current place text (main game text)
             //need to set up function to display nav controller 
 
-            
+            while (true)
+            {
+                ScreenRenderer.StartRender();
+                Console.ReadKey();
+            }
             
             
             

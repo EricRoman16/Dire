@@ -37,9 +37,9 @@ namespace Dire
             
             //UITest();
 
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-            Console.WriteLine("⫠⫟⫞⫤⫥⫧⫪⫨⫫⫭⫬⫩⫦⫣|¦‖");
-            Console.ReadKey();
+            //Console.OutputEncoding = System.Text.Encoding.UTF8;
+            //Console.WriteLine("⫠⫟⫞⫤⫥⫧⫪⫨⫫⫭⫬⫩⫦⫣|¦‖");
+            //Console.ReadKey();
 
             RunDire();
 
@@ -63,6 +63,7 @@ namespace Dire
             Console.Write("\tWorld descriptions here");
             Console.SetCursorPosition(4, 10);
             Console.Write("Options start here");
+            Console.ReadKey();
         }
     }
 }

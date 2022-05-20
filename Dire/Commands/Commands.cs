@@ -27,23 +27,20 @@ namespace Dire
             switch (command.ToLower())
             {
                 case "new game":
-                    Console.Clear();
-                    Program.CURRENTGAMESTATE = GameStates.MainGame;
-                    ScreenRenderer.Entered = false;
-                    ScreenRenderer.EXIT = true;
+                    
                     break;
                 case "load": // Nothing Right Now
                     break;
                 case "music": // Nothing Right Now
                     break;
                 case "yes":
-                    ScreenRenderer.EXIT = true;
+                    
                     break;
                 case "no":
                     break;
                 default:
-                    Console.SetCursorPosition(5, 5);
-                    Console.WriteLine(command.ToLower());
+                    //Console.SetCursorPosition(5, 5);
+                    //Console.WriteLine(command.ToLower());
                     break;
             }
         }

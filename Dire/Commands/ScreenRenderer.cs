@@ -13,13 +13,6 @@ namespace Dire
     {
 
         #region Variables
-        static int StartLeft = 5;
-        static int StartTop = 10;
-        static int Longest;
-        static int MainSelected = 0;
-        static int SecondSelected = 0;
-        public static bool Entered = false;
-        public static bool EXIT = false;
         public static bool Showing = true;
 
         public static string[][] DefaultSelections = new string[5][]
@@ -36,8 +29,8 @@ namespace Dire
             new string[] { "Options", "Music"},
             new string[] { "Exit", "Yes", "No"} ,
         };
-        static string[,] CurrentRender; // What is needed to write to the screen
-        static string[,] PastRender;// What has been writen to the screen - Here it should be empty
+        static string[,] CurrentRender = new string[30, 119];  // What is needed to write to the screen
+        static string[,] PastRender = new string[30, 119];     // What has been writen to the screen - Here it should be empty
 
         #endregion
 
@@ -45,19 +38,22 @@ namespace Dire
 
         public static void StartRender(bool reset = false, string[][] options = null)
         {
-            
 
-
-
-            FillArray(options);
+            FillArray();
             
             DrawRender();
             Finish();
         }
 
-        private static void FillArray(string[][] array)
+        private static void FillArray()
         {
-            
+            for(int i = 0; i < CurrentRender.GetLength(0); i++)
+            {
+                for(int j = 0; j < CurrentRender.GetLength(1); j++)
+                {
+                    CurrentRender[i, j] = (j % 2 == 0) ? "#" : "/";
+                }
+            }
         }
 
 
@@ -69,20 +65,20 @@ namespace Dire
             int length0 = CurrentRender.GetLength(0);
             int length1 = CurrentRender.GetLength(1);
             Console.CursorVisible = false;
-            Console.SetCursorPosition(StartLeft, StartTop);
+            Console.SetCursorPosition(0, 0);
             for (int i = 0; i < length0; i++)
             {
                 for (int j = 0; j < length1; j++)
                 {
-                    Console.SetCursorPosition(StartLeft + j, StartTop + i);
-                    string x = " ";
+                    Console.SetCursorPosition(j, i);
+                    string x = ""; //problem around here - i think i fixed it?
                     if (CurrentRender[i, j] != null && CurrentRender[i, j] != PastRender[i, j]) // checks if the space is not null or same as previous frame
                     {
                         x = (CurrentRender[i, j]);
                     }
                     Console.Write("\x1b[38;2;" + 192 + ";" + 192 + ";" + 192 + "m" + x); // prints character with normal color
                 }
-                Console.SetCursorPosition(StartLeft, StartTop + i + 1);
+                Console.SetCursorPosition(0, i + 1);
             }
             
 
