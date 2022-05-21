@@ -8,6 +8,7 @@ namespace Dire.Map.Locations
     class Forest : Location
     {
         //public int ID;
+        private readonly new string Name = "House";
         private readonly new string LookedDirectAt = "A house stands tall and surprisingly pristine"; // Must not have "." or a space at the end
         private readonly new string LookedBrieflyAt = "A house"; // No punctuation or spaces at the end!
         private readonly new string At = "You are at a house.";// Basically a normal sentence
@@ -19,6 +20,7 @@ namespace Dire.Map.Locations
 
         public Forest(int id) : base(id)
         {
+            base.Name = Name;
             base.LookedBrieflyAt = LookedBrieflyAt;
             base.LookedDirectAt = LookedDirectAt;
             base.At = At;

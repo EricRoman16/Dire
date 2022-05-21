@@ -34,12 +34,7 @@ namespace Dire
             //Console.Write("\x1b[48;5;" + i + "m*");
             //Console.Write("\x1b[38;2;" + i + ";" + i + ";" + i + "m h");
             
-            
             //UITest();
-
-            //Console.OutputEncoding = System.Text.Encoding.UTF8;
-            //Console.WriteLine("⫠⫟⫞⫤⫥⫧⫪⫨⫫⫭⫬⫩⫦⫣|¦‖");
-            //Console.ReadKey();
 
             RunDire();
 

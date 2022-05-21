@@ -9,18 +9,17 @@ namespace Dire
     public class GameEngine
     {
         #region Variables
-        //ScreenRenderer NC = new ScreenRenderer();
 
         public MAP Map = new MAP();
         public Player PLAYER;
+
+        public bool EXIT = false;
         #endregion
 
 
 
         public GameEngine(bool skipMainMenu = false, bool skipIntro = false)
         {
-
-
 
             if (!skipMainMenu)
                 MainMenuLoop();
@@ -38,45 +37,41 @@ namespace Dire
 
             if(PLAYER == null) PLAYER = new Player(" ", 10, new int[] { 5, 5 }, Player.PlayerStates.Exploring);
 
-            AreaWriter.WriteContext(Map, PLAYER.Pos[0], PLAYER.Pos[1]);
+            //AreaWriter.WriteContext(Map, PLAYER.Pos[0], PLAYER.Pos[1]);
 
-            //NC.StartRender(true);
+            Console.WriteLine(Map.GetLocationName(3, 3));
 
-            //need to set up function to display location
-            //need to set up function to display action/status
-            //need to set up function to display current place text (main game text)
-            //need to set up function to display nav controller 
-
-            while (true)
+            while (EXIT)
             {
                 ScreenRenderer.StartRender();
                 Console.ReadKey();
             }
-            
-            
-            
+
+
             Console.ReadKey();
             
         }
 
+
+
+
+        /// <summary>
+        /// Runs an intro sequence for the game to initilize a player
+        /// </summary>
         private void IntroLoop()
         {
-            //Run Intro sequence
-            Console.WriteLine("Running intro sequence!");
-            Console.ReadKey(true);
             Program.CURRENTGAMESTATE = GameStates.IntroSequence;
             PLAYER = Intro.IntroSequence();
         }
-
+        /// <summary>
+        /// Runs the main menu loop
+        /// </summary>
         private void MainMenuLoop()
         {
-            //Run Main menu sequence
-            //Console.WriteLine("Running Main menu sequence!");
-            //Console.ReadKey(true);
-            Console.Clear();
             Program.CURRENTGAMESTATE = GameStates.MainMenu;
-            MainMenu.DrawMainMenu();
-            //NC.StartRender();
+            Console.Clear();
+            //insert tick here?
+            
         }
 
     }

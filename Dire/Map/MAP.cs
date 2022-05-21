@@ -115,6 +115,11 @@ namespace Dire
             string s = GetLocationByID(RealMap[xPos, yPos]).On();
             return s;
         }
+        //Gets the name of the location at the specified world point
+        public string GetLocationName(int xPos, int yPos)
+        {
+            return GetLocationByID(RealMap[xPos, yPos]).GetName();
+        }
         // Not in final form
         private void MAP_GENERATOR()
         {

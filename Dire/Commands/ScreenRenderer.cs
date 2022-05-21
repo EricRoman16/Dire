@@ -29,30 +29,41 @@ namespace Dire
             new string[] { "Options", "Music"},
             new string[] { "Exit", "Yes", "No"} ,
         };
-        static string[,] CurrentRender = new string[30, 119];  // What is needed to write to the screen
-        static string[,] PastRender = new string[30, 119];     // What has been writen to the screen - Here it should be empty
+        static string[,] CurrentRender = new string[29, 119];  // What is needed to write to the screen
+        static string[,] PastRender = new string[29, 119];     // What has been writen to the screen - Here it should be empty
 
         #endregion
 
         
-
-        public static void StartRender(bool reset = false, string[][] options = null)
+        /// <summary>
+        /// Begins a new render that takes information from multiple sources based on GameState
+        /// and then prints to the screen
+        /// </summary>
+        public static void StartRender()
         {
-
             FillArray();
-            
-            DrawRender();
+            if(Showing)
+                DrawRender();
             Finish();
         }
 
+
+        /// <summary>
+        /// Grabs all the information that will be in the frame and organizes it into an array that will be displayed
+        /// </summary>
         private static void FillArray()
         {
-            for(int i = 0; i < CurrentRender.GetLength(0); i++)
+            // need to get location info (name for top left)
+            // need to get character status (player status for top right)
+            // need to get the world description at player pos in world
+            // need to get the options list for the selections at the bottom
+
+            switch (Program.CURRENTGAMESTATE)
             {
-                for(int j = 0; j < CurrentRender.GetLength(1); j++)
-                {
-                    CurrentRender[i, j] = (j % 2 == 0) ? "#" : "/";
-                }
+                case GameStates.MainMenu:
+                    break;
+                case GameStates.MainGame:
+                    break;
             }
         }
 
