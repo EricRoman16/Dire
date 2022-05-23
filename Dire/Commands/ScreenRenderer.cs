@@ -32,6 +32,9 @@ namespace Dire
         static string[,] CurrentRender = new string[29, 119];  // What is needed to write to the screen
         static string[,] PastRender = new string[29, 119];     // What has been writen to the screen - Here it should be empty
 
+        //temp variables 
+        static MAP TempMap;
+        static Player TempPlayer;
         #endregion
 
         
@@ -39,8 +42,10 @@ namespace Dire
         /// Begins a new render that takes information from multiple sources based on GameState
         /// and then prints to the screen
         /// </summary>
-        public static void StartRender()
+        public static void StartRender(MAP map, Player player)
         {
+            TempMap = map;
+            TempPlayer = player;
             FillArray();
             if(Showing)
                 DrawRender();
@@ -53,20 +58,36 @@ namespace Dire
         /// </summary>
         private static void FillArray()
         {
-            // need to get location info (name for top left)
-            // need to get character status (player status for top right)
-            // need to get the world description at player pos in world
-            // need to get the options list for the selections at the bottom
-
+            
             switch (Program.CURRENTGAMESTATE)
             {
                 case GameStates.MainMenu:
                     break;
                 case GameStates.MainGame:
+                    FillMainGame();
                     break;
             }
         }
 
+        private static void FillMainGame()
+        {
+            // need to get location info (name for top left)
+            string location = TempMap.GetLocationName(TempPlayer.Pos[0], TempPlayer.Pos[1]);
+            // need to get character status (player status for top right)
+            // need to get the world description at player pos in world
+            string locationText = TempMap.GetAtLocationText(TempPlayer.Pos[0], TempPlayer.Pos[1]);
+            // need to get the options list for the selections at the bottom
+
+            //need to use a for loop to put the characters in the currentRender array
+            for(int i = 0; i < location.Length; i++)
+            {
+                CurrentRender[0, i] = location.Substring(i, 1);
+            }
+            for (int i = 0; i < locationText.Length; i++)
+            {
+                CurrentRender[3, i + 5] = locationText.Substring(i, 1);
+            }
+        }
 
         /// <summary>
         /// Draws the rendered frame onto the screen

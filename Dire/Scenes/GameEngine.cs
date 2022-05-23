@@ -41,10 +41,10 @@ namespace Dire
 
             Console.WriteLine(Map.GetLocationName(3, 3));
 
-            while (EXIT)
+            while (!EXIT)
             {
-                ScreenRenderer.StartRender();
-                Console.ReadKey();
+                ScreenRenderer.StartRender(Map, PLAYER);
+                Commands.GetInput();
             }
 
 

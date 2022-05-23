@@ -6,18 +6,39 @@ namespace Dire
 {
     public static class Commands
     {
-        public static void CommandEnter(string command, string extraInfo = null)
+        static ConsoleKeyInfo InputKey;
+        public static void GetInput()
         {
-            switch (Program.CURRENTGAMESTATE)
+            InputKey = Console.ReadKey();
+
+            if(InputKey.Key == ConsoleKey.Enter)
             {
-                case GameStates.MainMenu:
-                    MainMenuCommands(command);
+                //might need to add something here because you might have another menu when pressing enter
+                //will need to get the selection numbers to pass to the functions
+                switch (Program.CURRENTGAMESTATE)
+                {
+                    case GameStates.MainMenu:
+                        //MainMenuCommands(command);
+                        break;
+                    case GameStates.IntroSequence:
+                        //IntroSequenceCommands(command);
+                        break;
+                    case GameStates.MainGame:
+                        //MainGameCommands(command, extraInfo);
+                        break;
+                }
+                return;
+            }
+
+            switch (InputKey.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    //Make selections go up
                     break;
-                case GameStates.IntroSequence:
-                    IntroSequenceCommands(command);
+                case ConsoleKey.DownArrow:
+                    //Make selections go down
                     break;
-                case GameStates.MainGame:
-                    MainGameCommands(command, extraInfo);
+                default:
                     break;
             }
         }
