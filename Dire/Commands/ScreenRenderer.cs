@@ -29,12 +29,17 @@ namespace Dire
             new string[] { "Options", "Music"},
             new string[] { "Exit", "Yes", "No"} ,
         };
+        public static int firstSelected = 0;
+        public static int secondSelected = 0;
+        public static int thirdSelected = 0;
+        static int Entered = 0;
         static string[,] CurrentRender = new string[29, 119];  // What is needed to write to the screen
         static string[,] PastRender = new string[29, 119];     // What has been writen to the screen - Here it should be empty
 
         //temp variables 
         static MAP TempMap;
         static Player TempPlayer;
+        static int count = 0;
         #endregion
 
         
@@ -74,19 +79,27 @@ namespace Dire
             // need to get location info (name for top left)
             string location = TempMap.GetLocationName(TempPlayer.Pos[0], TempPlayer.Pos[1]);
             // need to get character status (player status for top right)
+            Player.PlayerStates status = TempPlayer.PlayerStatus;
             // need to get the world description at player pos in world
             string locationText = TempMap.GetAtLocationText(TempPlayer.Pos[0], TempPlayer.Pos[1]);
             // need to get the options list for the selections at the bottom
 
             //need to use a for loop to put the characters in the currentRender array
-            for(int i = 0; i < location.Length; i++)
+            for(int i = 0; i < location.Length; i++) // Displays Player location in top left
             {
                 CurrentRender[0, i] = location.Substring(i, 1);
             }
-            for (int i = 0; i < locationText.Length; i++)
+            for (int i = 0; i < locationText.Length; i++) // Displays location text
             {
                 CurrentRender[3, i + 5] = locationText.Substring(i, 1);
             }
+            for(int i = 0; i < status.ToString().Length; i++) // Displays player status in top right
+            {
+                CurrentRender[0, 119 - status.ToString().Length + i] = status.ToString().Substring(i, 1);
+            }
+            addOptions();
+            CurrentRender[19, 0] = count.ToString();
+            count++;
         }
 
         /// <summary>
@@ -115,8 +128,42 @@ namespace Dire
             
 
         }
-                
         
+        private static void addOptions()
+        {
+            int longest = 0;
+            switch (Program.CURRENTGAMESTATE)
+            {
+                case GameStates.MainMenu:
+                    break;
+                case GameStates.MainGame:
+                    //writes the main selections
+                    for(int i = 0; i < DefaultSelections.GetLength(0); i++)
+                    {
+                        for(int j =0; j < DefaultSelections[i][0].Length; j++)
+                        {
+                            CurrentRender[i + 10, j] = DefaultSelections[i][0].Substring(j, 1);
+                        }
+                        if (DefaultSelections[i][0].Length > longest) longest = DefaultSelections[i][0].Length;
+                    }
+
+                    if(Entered == 0)
+                    {
+                        CurrentRender[firstSelected + 10, longest + 1] = "<";
+                    }
+                    if(Entered == 1)
+                    {
+                        CurrentRender[firstSelected + 10, longest + 1] = ">";
+                        CurrentRender[firstSelected + 10, longest * 2] = "<";
+                    }
+
+
+
+
+                    break;
+            }
+        }
+
         /// <summary>
         /// Final steps that need to be done
         /// </summary>
@@ -133,7 +180,10 @@ namespace Dire
             for (int i = 0; i < CurrentRender.GetLength(0); i++)
             {
                 for (int j = 0; j < CurrentRender.GetLength(1); j++)
+                {
+                    CurrentRender[i, j] = " ";
                     CurrentRender[i, j] = null;
+                }
             }
         }
 
