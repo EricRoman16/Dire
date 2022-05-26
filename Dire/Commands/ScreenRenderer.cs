@@ -32,7 +32,7 @@ namespace Dire
         public static int firstSelected = 0;
         public static int secondSelected = 0;
         public static int thirdSelected = 0;
-        static int Entered = 0;
+        public static int Entered = 0;
         static string[,] CurrentRender = new string[29, 119];  // What is needed to write to the screen
         static string[,] PastRender = new string[29, 119];     // What has been writen to the screen - Here it should be empty
 
@@ -117,7 +117,7 @@ namespace Dire
                 {
                     Console.SetCursorPosition(j, i);
                     string x = ""; //problem around here - i think i fixed it?
-                    if (CurrentRender[i, j] != null && CurrentRender[i, j] != PastRender[i, j]) // checks if the space is not null or same as previous frame
+                    if (CurrentRender[i, j] != PastRender[i, j]) // checks if the space is not null or same as previous frame
                     {
                         x = (CurrentRender[i, j]);
                     }
@@ -146,6 +146,21 @@ namespace Dire
                         }
                         if (DefaultSelections[i][0].Length > longest) longest = DefaultSelections[i][0].Length;
                     }
+                    if(Entered == 1)
+                    {
+                        for (int i = 0; i < DefaultSelections[firstSelected].Length; i++)
+                        {
+                            for (int j = 0; j < DefaultSelections[firstSelected][i].Length; j++)
+                            {
+                                CurrentRender[i + 10, j + longest + 3] = DefaultSelections[firstSelected][i].Substring(j, 1);
+                            }
+                            //if (DefaultSelections[i][0].Length > longest) longest = DefaultSelections[i][0].Length;
+                        }
+                    }
+
+
+
+
 
                     if(Entered == 0)
                     {
@@ -154,12 +169,8 @@ namespace Dire
                     if(Entered == 1)
                     {
                         CurrentRender[firstSelected + 10, longest + 1] = ">";
-                        CurrentRender[firstSelected + 10, longest * 2] = "<";
+                        CurrentRender[secondSelected + 10, longest * 2 + 36+6] = "<";
                     }
-
-
-
-
                     break;
             }
         }
@@ -182,7 +193,7 @@ namespace Dire
                 for (int j = 0; j < CurrentRender.GetLength(1); j++)
                 {
                     CurrentRender[i, j] = " ";
-                    CurrentRender[i, j] = null;
+                    //CurrentRender[i, j] = null; //might need to add this back later
                 }
             }
         }

@@ -34,11 +34,39 @@ namespace Dire
             {
                 case ConsoleKey.UpArrow:
                     //Make selections go up
-                    ScreenRenderer.firstSelected++;
+                    
+                    switch (ScreenRenderer.Entered)
+                    {
+                        case 0:
+                            if (ScreenRenderer.firstSelected > 0)
+                                ScreenRenderer.firstSelected--;
+                            break;
+                        case 1:
+                            if (ScreenRenderer.secondSelected > 0)
+                                ScreenRenderer.secondSelected--;
+                            break;
+                    }
                     break;
                 case ConsoleKey.DownArrow:
                     //Make selections go down
-                    ScreenRenderer.firstSelected--;
+                    switch (ScreenRenderer.Entered)
+                    {
+                        case 0:
+                            if (ScreenRenderer.firstSelected < ScreenRenderer.DefaultSelections.GetLength(0) - 1)
+                                ScreenRenderer.firstSelected++;
+                            break;
+                        case 1:
+                            if (ScreenRenderer.secondSelected < ScreenRenderer.DefaultSelections[ScreenRenderer.firstSelected].Length - 1)
+                                ScreenRenderer.secondSelected++;
+                            break;
+                    }
+                    break;
+                case ConsoleKey.RightArrow:
+                    ScreenRenderer.Entered++;
+                    break;
+                case ConsoleKey.LeftArrow:
+                    if(ScreenRenderer.Entered > 0)
+                        ScreenRenderer.Entered--;
                     break;
                 default:
                     break;
