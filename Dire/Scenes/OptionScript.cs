@@ -26,6 +26,25 @@ namespace Dire.Scenes
         };
 
         public static Dictionary<int, Delegate> dico = new Dictionary<int, Delegate>();
-        
+
+        public static Dictionary<string, string[]> Options = new Dictionary<string, string[]>()
+        {
+            { "Look", new string[] { "At", "Around", "North", "East", "South", "West"} },
+            { "Move", new string[] { "Towards", "North", "East", "South", "West" } },
+            { "Inventory", new string[] { "Use", "Equip", "Craft", "Drop" } },
+            { "Equipped", new string[] { "Remove", "Stats" } },
+            { "Options", new string[] { "Difficulty", "Save", "Load", "Music", "Docs", "Exit" } }
+        };
+
+        //new delegate 
+        /*
+         * Gonna try to make methods that can be called from within the dictionary
+         * that will do the tasks or that will reference methods in commands class <- probably better option
+         */
+
+        #region Methods
+
+        #endregion
+
     }
 }
