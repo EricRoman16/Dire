@@ -62,6 +62,7 @@
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\ScreenRenderer.cs" />
     <Compile Include="Entities\Player.cs" />
+    <Compile Include="Scenes\OptionScript.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Items\Weapons\Sword.cs" />
     <Compile Include="Map\MAP.cs" />

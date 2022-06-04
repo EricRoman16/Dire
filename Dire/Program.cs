@@ -37,7 +37,7 @@ namespace Dire
             //UITest();
 
             RunDire();
-
+            
         }
 
         // Main function that sets up and runs the game
